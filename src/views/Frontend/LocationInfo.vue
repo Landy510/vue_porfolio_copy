@@ -12,7 +12,7 @@
         <div class="row px-3">
           <div class="col-sm-4">
             <div class="form-group">
-              <select class="form-control" v-model="selectlocation" @change="PenTo(selectlocation)">
+              <select class="form-control rounded-0" v-model="selectlocation" @change="PenTo(selectlocation)">
                 <option v-for="(item, key) in data" :key="key" :value="item">{{ item["場地名稱"] }}</option>
               </select>
             </div>
@@ -20,10 +20,10 @@
               <h5 class="font-weight-bold">
                 {{ selectlocation["場地名稱"] }}
               </h5>
-              <small class="text-muted">{{ selectlocation["地址"] }}</small>
+              <small class="text-muted small-text">{{ selectlocation["地址"] }}</small>
               <br>
               <h5 class="mt-3" v-if="selectlocation.decription!==''">{{ selectlocation.decription }}</h5>
-              <img :src="selectlocation.image" :alt="selectlocation['場地名稱']" class="img-thumbnail" v-if="selectlocation.image!==''">
+              <img :src="selectlocation.image" :alt="selectlocation['場地名稱']" class="img-thumbnail rounded-0" v-if="selectlocation.image!==''">
             </div>
           </div>
           <div class="col-sm-8">
@@ -59,8 +59,8 @@ export default {
     }
   },
   methods: {
-    CounterCoupute (cart_total_length) {
-      this.product_length = cart_total_length
+    CounterCoupute (cartTotalLength) {
+      this.product_length = cartTotalLength
     },
     updateMap () {
       this.data.forEach(item => {
@@ -115,5 +115,8 @@ export default {
 <style scoped>
 #map {
   height: 100vh;
+}
+.small-text{
+  font-size: 14px;
 }
 </style>

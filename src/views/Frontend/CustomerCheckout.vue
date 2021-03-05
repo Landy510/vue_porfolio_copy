@@ -47,7 +47,7 @@
             </div>
             <div class="text-right" v-if="order.is_paid === false">
               <router-link to="/CustomerOrder/CustomerFinish">
-                <button class="btn btn-warning w-100" type="button" @click="payOrder">確認付款去</button>
+                <button class="btn btn-warning w-100 rounded-0" type="button" @click="payOrder">確認付款去</button>
               </router-link>
             </div>
           </div>
@@ -83,9 +83,9 @@ export default {
         console.log(vm.order)
       })
     },
-    CounterCoupute (cart_total_length) {
+    CounterCoupute (cartTotalLength) {
       this.getList()
-      this.product_length = cart_total_length
+      this.product_length = cartTotalLength
     },
     payOrder () {
       const vm = this

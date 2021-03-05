@@ -43,7 +43,7 @@
                 <tbody>
                   <tr v-for="(item, key) in carts" :key="key">
                     <td>
-                      <button type="button" class="btn btn-outline-danger" @click="delProduct(item.id)">
+                      <button type="button" class="btn btn-outline-danger rounded-0" @click="delProduct(item.id)">
                         <font-awesome-icon :icon="['fas', 'trash-alt']"/>
                       </button>
                     </td>
@@ -92,13 +92,13 @@
             </div>
 
             <div class="input-group mb-3 mt-3">
-              <input type="text" class="form-control border border-warning" v-model="coupon_code" placeholder="輸入1234折扣碼" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <input type="text" class="form-control border border-warning rounded-0" v-model="coupon_code" placeholder="輸入1234折扣碼" aria-label="Recipient's username" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-warning" type="button" @click="addCouponCode">套用優惠券</button>
+                <button class="btn btn-warning rounded-0" type="button" @click="addCouponCode">套用優惠券</button>
               </div>
             </div>
             <router-link to="customer2">
-              <button type="button" class="btn btn-warning btn-lg w-100">確認訂單</button>
+              <button type="button" class="btn btn-warning btn-lg w-100 rounded-0">確認訂單</button>
             </router-link>
           </div>
         </div>
@@ -180,9 +180,9 @@ export default {
       })
       vm.coupon_code = ''
     },
-    CounterCoupute (cart_total_length) {
+    CounterCoupute (cartTotalLength) {
       this.getList()
-      this.product_length = cart_total_length
+      this.product_length = cartTotalLength
     },
     CalQty (data, cal, num) {
       if (cal) {

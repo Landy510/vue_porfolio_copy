@@ -3,17 +3,17 @@
     <carousel :perPage="1" :paginationEnabled="false" :autoplay="true">
       <slide class="bg-cover intro_image d-flex justify-content-center align-items-center">
         <div class="intro_content">
-          <h2 class="display-4">It Is Time To Transform Your Physics</h2>
+          <h2 class="display-4 px-2">It Is Time To Transform Your Physics</h2>
         </div>
       </slide>
       <slide class="bg-cover intro_image1 d-flex justify-content-center align-items-center">
         <div class="intro_content">
-          <h2 class="display-4">最專業的器材</h2>
+          <h2 class="display-4 px-2">最專業的器材</h2>
         </div>
       </slide>
       <slide class="bg-cover intro_image2 d-flex justify-content-center align-items-center">
         <div class="intro_content">
-          <h2 class="display-4">邁向你想要的體態</h2>
+          <h2 class="display-4 px-2">邁向你想要的體態</h2>
         </div>
       </slide>
     </carousel>

@@ -7,12 +7,12 @@
 
     <div class="bg_finish bg-cover flex-grow-1 d-flex justify-content-center align-items-center flex-column">
       <div class="paid_content non_paid" :class="{'finish_paid':is_paid}">
-        <font-awesome-icon class="paid_progress mr-2":icon="['fas', 'flag']"/>
+        <font-awesome-icon class="paid_progress mr-2" :icon="['fas', 'flag']"/>
         <span v-if="!is_paid">訂單搜尋中...</span>
         <span v-else>已完成付款</span>
       </div>
       <router-link to="/">
-        <button class="btn btn-warning mt-3">回去逛逛</button>
+        <button class="btn btn-warning mt-3 rounded-0">回去逛逛</button>
       </router-link>
     </div>
     <Footer/>
@@ -47,9 +47,9 @@ export default {
         vm.isLoading = false
       })
     },
-    CounterCoupute (cart_total_length) {
+    CounterCoupute (cartTotalLength) {
       this.getList()
-      this.product_length = cart_total_length
+      this.product_length = cartTotalLength
     },
     payOrder () {
       const vm = this

@@ -17,15 +17,18 @@
         </nav>
         <div class="container mb-4">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <img :src="lecture.imageUrl" class="img-fluid" :alt="`${lecture.title}課程圖片`">
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-6">
                     <h2>{{ lecture.title }}</h2>
-                    <small>{{ lecture.description }}</small>
-                    <div class="d-flex justify-content-between align-items-end mb-4">
-                        <small class="card-text text-muted">原本售價 NT<del>{{ lecture.origin_price| currency }}</del></small>
-                        <strong class="card-text text-muted ml-auto">現在售價 NT<span class="h4 text-danger">{{ lecture.price| currency }}</span></strong>
+                    <h5 class="font-weight-bold">本課程好處</h5>
+                    <div v-html="lecture.content"></div>
+                    <h5 class="font-weight-bold mt-2">本課程安排</h5>
+                    <div>{{ lecture.description }}</div>
+                    <div class="d-flex justify-content-between align-items-end mb-3 mt-4">
+                      <div class="card-text text-muted medium-text">原本售價 <del>NT{{ lecture.origin_price| currency }}</del></div>
+                      <strong class="text-muted ml-auto h3 mb-0 text-right">現在售價 NT<span class="h3 text-danger">{{ lecture.price| currency }}</span></strong>
                     </div>
                     <h5>數量</h5>
                     <div class="input-group mb-3">
@@ -241,8 +244,8 @@ export default {
           })
         })
     },
-    CounterCoupute (cart_total_length) {
-      this.product_length = cart_total_length
+    CounterCoupute (cartTotalLength) {
+      this.product_length = cartTotalLength
     }
   },
   created () {
@@ -278,6 +281,9 @@ export default {
 .card:hover img{
   transition:all .5s;
   transform:scale(1.2);
+}
+.medium-text{
+  font-size:16px;
 }
 @media(max-width:680px){
   .advance_image{

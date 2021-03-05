@@ -26,8 +26,8 @@
                   <div class="d-flex align-items-lg-start flex-column flex-lg-row align-items-center">
                     <p class="text-dark mr-4 footer-tel">0800-123-4567</p>
                     <div class="d-flex flex-lg-column flex-row mb-2">
-                      <small class="text-dark">服務時間</small>
-                        <small>08:00-18:00</small>
+                      <small class="text-dark small-text mr-1">服務時間</small>
+                        <small class="small-text">08:00-18:00</small>
                     </div>
                   </div>
                   <p class="text-center text-lg-left mb-1">粉絲團</p>
@@ -83,6 +83,9 @@ export default {
 .mail_btn:hover{
   color:grey;
   transition:all .2s;
+}
+.small-text{
+  font-size: 14px;
 }
 @media(max-width:768px){
   .footer-tel{

@@ -24,7 +24,7 @@
                         <router-link to="/" class="nav-link text-dark">首頁</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/lecture/Lecture_Product" class="nav-link text-dark">課程</router-link>
+                        <router-link to="/lecture/LectureProduct" class="nav-link text-dark">課程</router-link>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -54,7 +54,7 @@
                                         <tr v-for="(item, index) in likeList" :key="index" >
                                           <td width="80">
                                             <a href="#" @click="removeLike(item)">
-                                              <i class="fas fa-trash-alt text-danger"></i>
+                                              <i class="fas fa-trash-alt text-danger rounded-0"></i>
                                             </a>
                                           </td>
                                           <td width="120">{{ item.title }}</td>
@@ -89,14 +89,14 @@
         <div class="lecture_hide p-4 bg-light">
             <div class="d-flex">
                     <div class="card rounded-0 border-0 mr-3 bg-light" style="width: 18rem;">
-                        <img class="card-img-top" src="https://upload.cc/i1/2021/02/16/XaFwDo.jpg" alt="了解Berserker Fitness圖片">
+                        <img class="card-img-top rounded-0" src="https://upload.cc/i1/2021/02/16/XaFwDo.jpg" alt="了解Berserker Fitness圖片">
                         <div class="card-body p-0 text-center mt-3">
                             <font-awesome-icon :icon="['fas', 'caret-right']" />
                             <router-link to="/Company/CompanyDetail" class="location_search_btn ml-2">了解Berserker Fitness</router-link>
                         </div>
                     </div>
                     <div class="card rounded-0 border-0 bg-light" style="width: 18rem;">
-                        <img class="card-img-top location_part" src="https://upload.cc/i1/2021/02/16/rcGXwH.jpg" alt="了解Berserker Fitness據點查詢圖片">
+                        <img class="card-img-top location_part rounded-0" src="https://upload.cc/i1/2021/02/16/rcGXwH.jpg" alt="了解Berserker Fitness據點查詢圖片">
                         <div class="card-body p-0 text-center mt-3">
                             <font-awesome-icon :icon="['fas', 'caret-right']" />
                             <router-link to="/Company/LocationInfo" class="location_search_btn ml-2">Berserker Fitness據點查詢</router-link>
@@ -116,19 +116,19 @@
                     </div>
                     <div class="modal-body p-0">
                             <div class="card px-4 border-0" v-for="(item,index) in cart" :key="index">
-                                <img class="card-img-top" :src="item.product.imageUrl" :alt="`${item.product.title}課程圖片`">
+                                <img class="card-img-top rounded-0" :src="item.product.imageUrl" :alt="`${item.product.title}課程圖片`">
                                 <div class="card-body">
                                     <h3 class="card-title">{{ item.product.title }}</h3>
                                     <h3 class="card-text">{{ item.product.price| currency }} 元</h3>
                                     <div class="d-flex justify-content-between align-items-end">
                                         <span class="card-text h5">{{ item.qty }} /{{ item.product.unit }}</span>
-                                        <button type="button" class="btn btn-outline-danger" @click="delProduct(item.id)"><font-awesome-icon :icon="['fas', 'trash-alt']"/></button>
+                                        <button type="button" class="btn btn-outline-danger rounded-0" @click="delProduct(item.id)"><font-awesome-icon :icon="['fas', 'trash-alt']"/></button>
                                     </div>
                                 </div>
                             </div>
                             <div class="bg-light p-4 h3 d-sm-flex justify-content-between mb-0" style="position:sticky; bottom:0;">總金額 {{ total_price| currency }}
                                 <router-link to="/customerOrder/customer1">
-                                    <button type="button" class="btn btn-warning px-5 w-100" @click="closeModal" :disabled="Status.isUploading">
+                                    <button type="button" class="btn btn-warning px-5 w-100 rounded-0" @click="closeModal" :disabled="Status.isUploading">
                                     <font-awesome-icon :icon="['fas', 'spinner']" spin v-if="Status.isUploading"/>
                                     結帳去</button>
                                 </router-link>

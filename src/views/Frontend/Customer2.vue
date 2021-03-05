@@ -39,7 +39,7 @@
                     <div class="form-group">
                       <label for="username">收件人姓名<span class="text-danger ml-1 font-weight-bold">*</span></label>
                       <input id="username" type="text" name="姓名"
-                        class="form-control" v-model="form.user.name" :class="classes" placeholder="輸入姓名" >
+                        class="form-control rounded-0" v-model="form.user.name" :class="classes" placeholder="輸入姓名" >
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
                   </validation-provider>
@@ -47,7 +47,7 @@
                     <div class="form-group">
                       <label for="email">Email<span class="text-danger ml-1 font-weight-bold">*</span></label>
                       <input id="email" type="email" name="email"
-                        class="form-control" v-model="form.user.email" :class="classes" placeholder="請輸入信箱">
+                        class="form-control rounded-0" v-model="form.user.email" :class="classes" placeholder="請輸入信箱">
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
                   </validation-provider>
@@ -55,7 +55,7 @@
                     <div class="form-group">
                       <label for="useraddress">收件人地址<span class="text-danger ml-1 font-weight-bold">*</span></label>
                       <input id="useraddress" type="text" name="地址"
-                        class="form-control" v-model="form.user.address" :class="classes" placeholder="請輸入地址" >
+                        class="form-control rounded-0" v-model="form.user.address" :class="classes" placeholder="請輸入地址" >
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
                   </validation-provider>
@@ -63,18 +63,18 @@
                     <div class="form-group">
                       <label for="usertel">收件人電話<span class="text-danger ml-1 font-weight-bold">*</span></label>
                       <input id="usertel" type="tel" name="電話"
-                        class="form-control" v-model="form.user.tel" :class="classes" placeholder="請輸入電話" >
+                        class="form-control rounded-0" v-model="form.user.tel" :class="classes" placeholder="請輸入電話" >
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
                   </validation-provider>
-                  <validation-provider v-slot="{ errors, classes }">
+                  <validation-provider>
                     <div class="form-group">
                       <label for="comment">留言</label>
-                      <textarea name="" id="comment" class="form-control" cols="30" rows="10" v-model="form.message"></textarea>
+                      <textarea name="" id="comment" class="form-control rounded-0" cols="30" rows="10" v-model="form.message"></textarea>
                     </div>
                   </validation-provider>
                   <div class="text-right">
-                    <button class="btn btn-danger" :disabled="invalid">送出訂單</button>
+                    <button class="btn btn-danger rounded-0" :disabled="invalid">送出訂單</button>
                   </div>
                 </form>
               </validation-observer>
@@ -167,12 +167,12 @@ export default {
     getList () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      vm.isLoading = true
       vm.$http.get(api).then((response) => {
         vm.carts = response.data.data.carts
         vm.total = response.data.data.total
         vm.final_total = response.data.data.final_total
-        console.log('最終的結果', vm.total)
-        console.log('最終的結果', vm.final_total)
+        vm.isLoading = false
         vm.product_length = response.data.data.carts.length
       })
     },
@@ -203,9 +203,9 @@ export default {
         vm.isLoading = false
       })
     },
-    CounterCoupute (cart_total_length) {
+    CounterCoupute (cartTotalLength) {
       this.getList()
-      this.product_length = cart_total_length
+      this.product_length = cartTotalLength
     },
     openCartContent () {
       $('.cart_content').slideToggle(1000)
