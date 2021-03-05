@@ -101,54 +101,53 @@
 </template>
 
 <script>
-    import Alert from './AlertMessage';
-    import Navbar from './Navbar';
-    export default {
-        name: 'Customer1',
-        data(){
-            return{
-               isLoading:false, 
-               orderId:'',
-               order:{
-                   user:{
-                       email:''
-                   }
-               },
-            }
-        },
-        methods:{
-            getList(){
-                const vm = this;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
-                vm.$http.get(api).then((response) => {
-                    vm.order = response.data.order;  
-                })
-            },
-            CounterCoupute(cart_total_length){
-                this.getList();
-                this.product_length = cart_total_length;
-            },
-            payOrder(){
-                const vm = this;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
-                vm.isLoading = true;
-                this.$http.post(api).then((response) => {
-                    vm.getList(); 
-                    vm.isLoading = false;
-                })
-            }
-        },
-        created(){
-            
-            this.orderId = this.$route.params.orderId;
-            console.log(this.orderId);
-            this.getList();
-        },
-        components:{
-            Alert,
-            Navbar
+import Alert from './AlertMessage'
+import Navbar from './Navbar'
+export default {
+  name: 'Customer1',
+  data () {
+    return {
+      isLoading: false,
+      orderId: '',
+      order: {
+        user: {
+          email: ''
         }
-    };
+      }
+    }
+  },
+  methods: {
+    getList () {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
+      vm.$http.get(api).then((response) => {
+        vm.order = response.data.order
+      })
+    },
+    CounterCoupute (cart_total_length) {
+      this.getList()
+      this.product_length = cart_total_length
+    },
+    payOrder () {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
+      vm.isLoading = true
+      this.$http.post(api).then((response) => {
+        vm.getList()
+        vm.isLoading = false
+      })
+    }
+  },
+  created () {
+    this.orderId = this.$route.params.orderId
+    console.log(this.orderId)
+    this.getList()
+  },
+  components: {
+    Alert,
+    Navbar
+  }
+}
 </script>
 
 <style scoped>

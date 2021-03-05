@@ -7,7 +7,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent border border-bottom">
                 <li class="breadcrumb-item">
-                    <router-link to="/" class="text-muted">首頁</router-link>     
+                    <router-link to="/" class="text-muted">首頁</router-link>
                 </li>
                 <li class="breadcrumb-item">
                     <router-link to="/lecture/Lecture_Product" class="text-muted">課程</router-link>
@@ -58,7 +58,7 @@
                     <img src="https://upload.cc/i1/2021/02/07/jnkI6B.jpg" class="img-fluid advance_image" alt="Berserker Fitness運動好處">
                 </div>
                 </div>
-            </div> 
+            </div>
         </div>
 
         <div class="container-fluid py-5">
@@ -77,9 +77,9 @@
                             <li class="list-group-item border-0 bg-transparent px-0 h5">和同儕一起進步</li>
                         </ul>
                     </div>
-                
+
                 </div>
-            </div> 
+            </div>
         </div>
 
         <div class="container">
@@ -92,7 +92,7 @@
                             <div class="card_image h-50">
                                 <img class="card-img-top" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
                             </div>
-                            
+
                             <div class="card-body">
                             <h5 class="card-title">{{ item.title }}</h5>
                             <p class="card-text">{{ item.description }}</p>
@@ -109,159 +109,159 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import Navbar from "../Navbar";
-import Footer from "../Footer";
-import { Carousel, Slide } from 'vue-carousel';
-  export default {
-    data(){
-         return{
-            orderId:'',
-            products:[],
-            lecture:{},
-            carts:[],
-            carData:JSON.parse(localStorage.getItem('carData')) || [],
-            qty:0,
-            isLoading:false,
-            product_length:0
+import $ from 'jquery'
+import Navbar from '../Navbar'
+import Footer from '../Footer'
+import { Carousel, Slide } from 'vue-carousel'
+export default {
+  data () {
+    return {
+      orderId: '',
+      products: [],
+      lecture: {},
+      carts: [],
+      carData: JSON.parse(localStorage.getItem('carData')) || [],
+      qty: 0,
+      isLoading: false,
+      product_length: 0
+    }
+  },
+  methods: {
+    getProduct (id) {
+      const vm = this
+      vm.isLoading = true
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`
+      vm.$http.get(api).then((response) => {
+        if (response.data.success) {
+          vm.lecture = response.data.product
+          vm.isLoading = false
+          this.getRelateProducts()
         }
+      })
     },
-    methods:{
-        getProduct(id){
-            const vm = this;
-            vm.isLoading = true;
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
-            vm.$http.get(api).then((response)=>{
-                if(response.data.success){
-                    vm.lecture = response.data.product;
-                    vm.isLoading = false;
-                    this.getRelateProducts();
-                }
-            })
-        },
-        getList(){
-          const vm = this;
-          vm.isLoading = true;
-          const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-          vm.$http.get(url).then((response) => {
-            if (response.data.data.carts) {
-              vm.carts = response.data.data.carts;
-              localStorage.setItem('cartData', JSON.stringify(vm.carts));
-              vm.cartData = JSON.parse(localStorage.getItem('cartData')) || [];
-              vm.product_length = response.data.data.carts.length;
-            }
-            vm.isLoading = false;
-          });
-        },
-        getRelateProducts(){
-            const vm =this;
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
-            vm.$http.get(api).then((response)=>{
-                if(response.data.success){
-                  vm.products = response.data.products;
-                }
-            })
-        },
-        CalQty(qty = 0){
-          let num = this.qty;
-          num += qty;
-          if(num<0)return;
-          this.qty += qty;
-        },
-        addToCart(data){
-          const vm = this;
-          if(vm.qty===0)return;
-          const cartID = [];
-          vm.cartData = JSON.parse(localStorage.getItem('cartData')) || [];
-          vm.cartData.forEach((item, index) => {
-            cartID.push(item.product_id);
-          })
-          if(cartID.indexOf(data.id) === -1) {
-            let cartContent = {
+    getList () {
+      const vm = this
+      vm.isLoading = true
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      vm.$http.get(url).then((response) => {
+        if (response.data.data.carts) {
+          vm.carts = response.data.data.carts
+          localStorage.setItem('cartData', JSON.stringify(vm.carts))
+          vm.cartData = JSON.parse(localStorage.getItem('cartData')) || []
+          vm.product_length = response.data.data.carts.length
+        }
+        vm.isLoading = false
+      })
+    },
+    getRelateProducts () {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
+      vm.$http.get(api).then((response) => {
+        if (response.data.success) {
+          vm.products = response.data.products
+        }
+      })
+    },
+    CalQty (qty = 0) {
+      let num = this.qty
+      num += qty
+      if (num < 0) return
+      this.qty += qty
+    },
+    addToCart (data) {
+      const vm = this
+      if (vm.qty === 0) return
+      const cartID = []
+      vm.cartData = JSON.parse(localStorage.getItem('cartData')) || []
+      vm.cartData.forEach((item, index) => {
+        cartID.push(item.product_id)
+      })
+      if (cartID.indexOf(data.id) === -1) {
+        const cartContent = {
+          product_id: data.id,
+          qty: vm.qty,
+          name: data.title,
+          origin_price: data.origin_price,
+          price: data.price
+        }
+        vm.cartData.push(cartContent)
+        localStorage.setItem('cartData', JSON.stringify(vm.cartData))
+        $('#productModal').modal('hide')
+      } else {
+        let cache = {}
+        vm.cartData.forEach((item, index) => {
+          if (item.product_id === data.id) {
+            const number = item.qty + vm.qty
+            cache = {
               product_id: data.id,
-              qty: vm.qty, 
+              qty: number,
               name: data.title,
               origin_price: data.origin_price,
-              price: data.price,
+              price: data.price
             }
-            vm.cartData.push(cartContent);
-            localStorage.setItem('cartData', JSON.stringify(vm.cartData));
-            $('#productModal').modal('hide');
-          } else {
-            let cache = {};   
-            vm.cartData.forEach((item, index) => {
-              if(item.product_id === data.id) {
-                let number = item.qty + vm.qty;
-                cache = {
-                  product_id: data.id,
-                  qty: number,
-                  name: data.title,
-                  origin_price: data.origin_price,
-                  price: data.price,
-                };
-                vm.cartData.splice(index, 1);
-              }
-            })
-            vm.cartData.push(cache);
-            localStorage.setItem('cartData', JSON.stringify(vm.cartData));
-            $('#productModal').modal('hide');
+            vm.cartData.splice(index, 1)
           }
-          vm.$bus.$emit('messsage:push', '已加入購物車', 'success');
-          vm.postCart();
-        },
-        postCart() {
-          const vm = this;
-          vm.isLoading = true;
-          const cacheID = [];
-          vm.axios.get(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`)
-            .then((res) => {
-              const cacheData = res.data.data.carts;
-              cacheData.forEach((item) => {
-                cacheID.push(item.id);
-              });
-            }).then(() => {
-              cacheID.forEach((item) => {
-                vm.axios.delete(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item}`).then(() => {
-                  console.log('購物車已經清空');
-                });
-              });
-            }).then(() => {
-              vm.cartData.forEach((item) => {
-                const cache = {
-                  product_id: item.product_id,
-                  qty: item.qty,
-                };
-                vm.axios.post(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`, { data: cache })
-                  .then(() => {
-                    vm.cartData = [];
-                    localStorage.removeItem('cartData');
-                    vm.isLoading = false;
-                    vm.getList();
-                  });
-              });
-            });
-        },
-        CounterCoupute(cart_total_length){
-            this.product_length = cart_total_length;
-        }
+        })
+        vm.cartData.push(cache)
+        localStorage.setItem('cartData', JSON.stringify(vm.cartData))
+        $('#productModal').modal('hide')
+      }
+      vm.$bus.$emit('messsage:push', '已加入購物車', 'success')
+      vm.postCart()
     },
-    created(){
-        this.orderId = this.$route.params.LectureId;
-        this.getProduct(this.orderId);
+    postCart () {
+      const vm = this
+      vm.isLoading = true
+      const cacheID = []
+      vm.axios.get(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`)
+        .then((res) => {
+          const cacheData = res.data.data.carts
+          cacheData.forEach((item) => {
+            cacheID.push(item.id)
+          })
+        }).then(() => {
+          cacheID.forEach((item) => {
+            vm.axios.delete(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item}`).then(() => {
+              console.log('購物車已經清空')
+            })
+          })
+        }).then(() => {
+          vm.cartData.forEach((item) => {
+            const cache = {
+              product_id: item.product_id,
+              qty: item.qty
+            }
+            vm.axios.post(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`, { data: cache })
+              .then(() => {
+                vm.cartData = []
+                localStorage.removeItem('cartData')
+                vm.isLoading = false
+                vm.getList()
+              })
+          })
+        })
     },
-    components:{
-        Navbar,
-        Carousel, 
-        Slide,
-        Footer,
-    },
-    computed: {
-        sameCategoryFilter: function() {
-          const vm = this;
-          return vm.products.filter((item) => item.category === vm.lecture.category && item.title!==vm.lecture.title)
-        }
+    CounterCoupute (cart_total_length) {
+      this.product_length = cart_total_length
+    }
+  },
+  created () {
+    this.orderId = this.$route.params.LectureId
+    this.getProduct(this.orderId)
+  },
+  components: {
+    Navbar,
+    Carousel,
+    Slide,
+    Footer
+  },
+  computed: {
+    sameCategoryFilter: function () {
+      const vm = this
+      return vm.products.filter((item) => item.category === vm.lecture.category && item.title !== vm.lecture.title)
     }
   }
+}
 </script>
 
 <style scoped>

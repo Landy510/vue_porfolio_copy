@@ -6,17 +6,15 @@
 </template>
 
 <script>
-  import Navbar from '../Navbar'
-  import alert from '../AlertMessage'
-  export default {
-    data(){
-        return{
-            
-        }
-    },
-    components:{
-        Navbar,
-        alert
+import alert from '../AlertMessage'
+export default {
+  data () {
+    return {
+
     }
+  },
+  components: {
+    alert
   }
+}
 </script>

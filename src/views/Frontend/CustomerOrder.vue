@@ -5,16 +5,12 @@
 </template>
 
 <script>
-    import Navbar from '../Navbar';
-    export default {
-        name: 'CustomerOrder',
-        data(){
-            return{
-                
-            }
-        },
-        components:{
-            Navbar
-        }
-    };
+export default {
+  name: 'CustomerOrder',
+  data () {
+    return {
+
+    }
+  }
+}
 </script>

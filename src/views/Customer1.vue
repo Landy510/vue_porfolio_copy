@@ -29,7 +29,7 @@
             </div>
         </div>
         <h2 class="text-center bg-warning py-2">購物車內容</h2>
-        
+
         <div v-if="carts.length!==0">
             <table class="table mt-4">
                 <thead>
@@ -38,13 +38,13 @@
                     <th class=" border-bottom-0" >商品名稱</th>
                     <th width="100" class=" border-bottom-0" >數量</th>
                     <th class=" border-bottom-0" >金額</th>
-                
+
                 </thead>
                 <tbody>
                     <tr v-for="(item, key) in carts" :key="key">
                         <td>
                             <button type="button" class="btn btn-outline-danger" @click="delProduct(item.id)">
-                            
+
                                 <font-awesome-icon :icon="['fas', 'trash-alt']"/>
                             </button>
                         </td>
@@ -55,13 +55,13 @@
                         <td class="h5">
                         {{ item.qty }} /{{ item.product.unit }}
                         </td>
-                        
+
                         <td class="h5">
-                            {{ item.qty*item.product.price| currency }} 
+                            {{ item.qty*item.product.price| currency }}
                         </td>
-                    
+
                     </tr>
-                    
+
                 </tbody>
                 <tfoot>
                     <tr>
@@ -79,7 +79,6 @@
                 </tfoot>
             </table>
 
-        
             <div class="input-group mb-3">
                 <input type="text" class="form-control border border-success" v-model="coupon_code" placeholder="輸入1234折扣碼，即可享有折扣" aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
@@ -98,80 +97,80 @@
 </template>
 
 <script>
-    // import $ from 'jquery';
-    import Alert from './AlertMessage';
-    import Navbar from './Navbar';
-    export default {
-        name: 'Customer1',
-        data(){
-            return{
-               isLoading:false, 
-               carts:[],
-               total:0,
-               final_total:0,
-               coupon_code:'',
-               product_length:0,
-               hasCoupon:false
-            }
-        },
-        methods:{
-            getList(){
-              const vm = this;
-              vm.isLoading = true;
-              const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-              vm.$http.get(api).then((response) => {  
-                console.log('Customer1',response);
-                vm.carts = response.data.data.carts;
-                vm.total = response.data.data.total;
-                vm.final_total = response.data.data.final_total;
-                vm.product_length = response.data.data.carts.length;
-                vm.isLoading = false;
-              })
-            },
-            delProduct(id){
-                console.log(id);
-                let vm = this;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`; 
-                vm.isLoading = true;
-                this.$http.delete(api).then((response)=>{
-                    console.log(response);
-                    if(response.data.success){
-                        vm.isLoading = false;
-                        vm.$bus.$emit('messsage:push', response.data.message, 'danger');
-                    } else {
-                        vm.isLoading = false;
-                        vm.$bus.$emit('messsage:push', response.data.message, 'danger');
-                    }
-                    vm.getList();
-                })
-            },
-            addCouponCode(){
-                const vm = this;
-                vm.isLoading = true;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
-                const coupon = {
-                    code:vm.coupon_code
-                }
-                this.$http.post(api, {data:coupon}).then((response) => {  
-                    console.log('優惠券', response.data.success);
-                    vm.hasCoupon = response.data.success;
-                    this.getList();  
-                    vm.isLoading = false;
-                })
-            },
-            CounterCoupute(cart_total_length){
-                this.getList();
-                this.product_length = cart_total_length;
-            }
-        },
-        created(){
-            this.getList();
-        },
-        components:{
-            Alert,
-            Navbar
+// import $ from 'jquery';
+import Alert from './AlertMessage'
+import Navbar from './Navbar'
+export default {
+  name: 'Customer1',
+  data () {
+    return {
+      isLoading: false,
+      carts: [],
+      total: 0,
+      final_total: 0,
+      coupon_code: '',
+      product_length: 0,
+      hasCoupon: false
+    }
+  },
+  methods: {
+    getList () {
+      const vm = this
+      vm.isLoading = true
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      vm.$http.get(api).then((response) => {
+        console.log('Customer1', response)
+        vm.carts = response.data.data.carts
+        vm.total = response.data.data.total
+        vm.final_total = response.data.data.final_total
+        vm.product_length = response.data.data.carts.length
+        vm.isLoading = false
+      })
+    },
+    delProduct (id) {
+      console.log(id)
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
+      vm.isLoading = true
+      this.$http.delete(api).then((response) => {
+        console.log(response)
+        if (response.data.success) {
+          vm.isLoading = false
+          vm.$bus.$emit('messsage:push', response.data.message, 'danger')
+        } else {
+          vm.isLoading = false
+          vm.$bus.$emit('messsage:push', response.data.message, 'danger')
         }
-    };
+        vm.getList()
+      })
+    },
+    addCouponCode () {
+      const vm = this
+      vm.isLoading = true
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`
+      const coupon = {
+        code: vm.coupon_code
+      }
+      this.$http.post(api, { data: coupon }).then((response) => {
+        console.log('優惠券', response.data.success)
+        vm.hasCoupon = response.data.success
+        this.getList()
+        vm.isLoading = false
+      })
+    },
+    CounterCoupute (cart_total_length) {
+      this.getList()
+      this.product_length = cart_total_length
+    }
+  },
+  created () {
+    this.getList()
+  },
+  components: {
+    Alert,
+    Navbar
+  }
+}
 </script>
 
 <style scoped>

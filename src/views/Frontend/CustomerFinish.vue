@@ -4,7 +4,7 @@
       <loading :active.sync="isLoading"></loading>
     </div>
     <Navbar></Navbar>
-    
+
     <div class="bg_finish bg-cover flex-grow-1 d-flex justify-content-center align-items-center flex-column">
       <div class="paid_content non_paid" :class="{'finish_paid':is_paid}">
         <font-awesome-icon class="paid_progress mr-2":icon="['fas', 'flag']"/>
@@ -20,56 +20,56 @@
 </template>
 
 <script>
-import Navbar from '../Navbar';
-import Footer from '../Footer';
+import Navbar from '../Navbar'
+import Footer from '../Footer'
 export default {
-name: 'Customer1',
-data(){
-  return{
-    isLoading:false, 
-    orderId:'',
-    order:{
-      user:{
-        email:''
-      }
+  name: 'Customer1',
+  data () {
+    return {
+      isLoading: false,
+      orderId: '',
+      order: {
+        user: {
+          email: ''
+        }
+      },
+      is_paid: false
+    }
+  },
+  methods: {
+    getList () {
+      const vm = this
+      vm.isLoading = true
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
+      vm.$http.get(api).then((response) => {
+        vm.order = response.data.order
+        vm.is_paid = response.data.order.is_paid
+        vm.isLoading = false
+      })
     },
-    is_paid:false,
-  }
-},
-methods:{
-  getList(){
-    const vm = this;
-    vm.isLoading = true;
-    const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
-    vm.$http.get(api).then((response) => {
-        vm.order = response.data.order;  
-        vm.is_paid = response.data.order.is_paid;
-        vm.isLoading = false;
-    })
+    CounterCoupute (cart_total_length) {
+      this.getList()
+      this.product_length = cart_total_length
+    },
+    payOrder () {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
+      vm.isLoading = true
+      this.$http.post(api).then((response) => {
+        vm.getList()
+        vm.isLoading = false
+      })
+    }
   },
-  CounterCoupute(cart_total_length){
-    this.getList();
-    this.product_length = cart_total_length;
+  created () {
+    this.orderId = this.$route.params.orderId
+    this.getList()
   },
-  payOrder(){
-    const vm = this;
-    const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
-    vm.isLoading = true;
-    this.$http.post(api).then((response) => {
-      vm.getList(); 
-      vm.isLoading = false;
-    })
+  components: {
+    Navbar,
+    Footer
   }
-},
-created(){
-  this.orderId = this.$route.params.orderId;
-  this.getList();
-},
-components:{
-  Navbar,
-  Footer,
 }
-};
 </script>
 
 <style scoped>
@@ -96,7 +96,7 @@ components:{
   left:0;
   right:0;
   top:0;
-  bottom:0; 
+  bottom:0;
 }
 .order-title {
   position:relative;

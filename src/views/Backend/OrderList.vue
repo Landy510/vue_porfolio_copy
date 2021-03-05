@@ -26,47 +26,44 @@
                 </tr>
             </tbody>
         </table>
-        
+
         <pagination :author="pagination" v-on:increment="getProducts"></pagination>
     </div>
 </template>
 
 <script>
-import Navbar from '../Navbar'
 import pagination from '../Pagination'
 export default {
   data () {
-      return {
-        pagination:{},
-        products:[],
-        tempProduct:{},
-        isNew: false,
-        isLoading: false,
-        Status:{
-            isUploading:false
-        },
-        customer_order:[]
-      }
-  },
-  methods:{
-        getProducts(page=1){
-            const vm = this;
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`; 
-            vm.isLoading = true;
-            vm.$http.get(api).then((response) => {
-                vm.isLoading = false;
-                let el = `"${response.data.orders[0].id}"`;
-                vm.customer_order = response.data.orders;
-                vm.pagination = response.data.pagination;
-            })
-        },
-    },
-    created(){
-        this.getProducts()
-    },
-    components:{
-        pagination,
-        Navbar
+    return {
+      pagination: {},
+      products: [],
+      tempProduct: {},
+      isNew: false,
+      isLoading: false,
+      Status: {
+        isUploading: false
+      },
+      customer_order: []
     }
+  },
+  methods: {
+    getProducts (page = 1) {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
+      vm.isLoading = true
+      vm.$http.get(api).then((response) => {
+        vm.isLoading = false
+        vm.customer_order = response.data.orders
+        vm.pagination = response.data.pagination
+      })
+    }
+  },
+  created () {
+    this.getProducts()
+  },
+  components: {
+    pagination
+  }
 }
 </script>

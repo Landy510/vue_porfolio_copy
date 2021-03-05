@@ -10,16 +10,15 @@
                     <p class="text-muted mt-1 mt-lg-5 text-center text-lg-left mb-1">Berserker Fitness Information</p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start">
                       <div class="mt-1 mr-2 CompanyInfo_content">
-                        <font-awesome-icon :icon="['fas', 'caret-right']" /> 
+                        <font-awesome-icon :icon="['fas', 'caret-right']" />
                         <router-link to="/Company/CompanyDetail" class="location_search_btn mt-2 ml-1">了解Berserker Fitness</router-link>
                       </div>
                       <div class="mt-1 CompanyInfo_content">
                         <font-awesome-icon :icon="['fas', 'caret-right']" />
-                        <router-link to="/Company/LocationInfo" class="location_search_btn mt-2 ml-1">Berserker Fitness據點查詢</router-link>  
+                        <router-link to="/Company/LocationInfo" class="location_search_btn mt-2 ml-1">Berserker Fitness據點查詢</router-link>
                       </div>
                     </div>
-                    
-                    
+
                 </div>
                 <div class="col-lg-4">
                   <p class="text-center text-md-left d-none d-lg-block mb-1">Contact us</p>
@@ -49,9 +48,9 @@
                     <font-awesome-icon :icon="['fas', 'caret-right']" />
                     <a class="text-center text-lg-left d-block ml-2 mail_btn" href="mailto:randychen510.gmail.com">randychen510.gmail.com</a>
                   </div>
-                  
+
                 </div>
-            </div>  
+            </div>
         </div>
     </footer>
 </template>
@@ -59,12 +58,12 @@
 <script>
 export default {
   name: 'Footer',
-  data() {
+  data () {
     return {
-      
-    };
+
+    }
   }
-};
+}
 </script>
 
 <style scoped>

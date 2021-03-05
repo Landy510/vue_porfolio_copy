@@ -23,7 +23,7 @@
                 <td>
                 {{ item.percent }}
                 </td>
-                
+
                 <td>
                     <span v-if="item.is_enabled" class="text-success">啟用</span>
                     <span v-else>未啟用</span>
@@ -56,7 +56,7 @@
                                     placeholder="請輸入優惠券名稱" v-model="tempProduct.title">
                             </div>
                         </div>
-                        
+
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="coupon-code">優惠碼</label>
@@ -121,83 +121,83 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import pagination from '../Pagination';
+import $ from 'jquery'
+import pagination from '../Pagination'
 export default {
-    name: 'Coupon',
-    data(){
-        return{
-            tempProduct:{},
-            products:[],
-            pagination:{},
-            isNew:false,
-            isLoading:false,
-        }
-    },
-    methods:{
-            getList(page = 1){
-                const vm = this;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`;
-                vm.isLoading = true;
-                vm.$http.get(api).then((response) => {
-                    vm.isLoading = false;
-                    vm.pagination = response.data.pagination;
-                    vm.products = response.data.coupons;   
-                })
-            },
-            openModal(isNew, content, item){
-                const vm = this;
-                $('#CouponModal').modal('show');
-                if(isNew){
-                    vm.tempProduct = {};
-                    vm.isNew = true;
-                } else {
-                    vm.tempProduct = {...item};
-                    this.isNew = false;
-                }
-                $('#CouponModal').find('.modal-title').text(content)
-            },
-            delModal(item){
-                $('#delCouponModal').modal('show');
-                this.tempProduct = {...item};
-            },
-            delCoupon(){
-                const vm = this;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempProduct.id}`;
-                this.$http.delete(api).then((response) => {
-                    if(response.data.success){
-                        $('#delCouponModal').modal('hide');
-                    } else{
-                        $('#delCouponModal').modal('hide');
-                    }
-                    vm.getList();
-                })
-            },
-            updateCoupon(){
-                const vm = this;
-                let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
-                let httpMode = 'post';
-                vm.isLoading = true;
-                if(!vm.isNew){
-                    api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempProduct.id}`;
-                    httpMode = 'put';
-                }
-                this.$http[httpMode](api, {data:vm.tempProduct}).then((response) => {
-                   if(response.data.success){
-                        vm.isLoading = false;
-                       $('#CouponModal').modal('hide');
-                   } else {
-                        $('#productModal').modal('hide');
-                    } 
-                    vm.getList();
-                })
-            }
-    },
-    created(){
-      this.getList();
-    },
-    components:{
-        pagination
+  name: 'Coupon',
+  data () {
+    return {
+      tempProduct: {},
+      products: [],
+      pagination: {},
+      isNew: false,
+      isLoading: false
     }
-};
+  },
+  methods: {
+    getList (page = 1) {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`
+      vm.isLoading = true
+      vm.$http.get(api).then((response) => {
+        vm.isLoading = false
+        vm.pagination = response.data.pagination
+        vm.products = response.data.coupons
+      })
+    },
+    openModal (isNew, content, item) {
+      const vm = this
+      $('#CouponModal').modal('show')
+      if (isNew) {
+        vm.tempProduct = {}
+        vm.isNew = true
+      } else {
+        vm.tempProduct = { ...item }
+        this.isNew = false
+      }
+      $('#CouponModal').find('.modal-title').text(content)
+    },
+    delModal (item) {
+      $('#delCouponModal').modal('show')
+      this.tempProduct = { ...item }
+    },
+    delCoupon () {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempProduct.id}`
+      this.$http.delete(api).then((response) => {
+        if (response.data.success) {
+          $('#delCouponModal').modal('hide')
+        } else {
+          $('#delCouponModal').modal('hide')
+        }
+        vm.getList()
+      })
+    },
+    updateCoupon () {
+      const vm = this
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`
+      let httpMode = 'post'
+      vm.isLoading = true
+      if (!vm.isNew) {
+        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempProduct.id}`
+        httpMode = 'put'
+      }
+      this.$http[httpMode](api, { data: vm.tempProduct }).then((response) => {
+        if (response.data.success) {
+          vm.isLoading = false
+          $('#CouponModal').modal('hide')
+        } else {
+          $('#productModal').modal('hide')
+        }
+        vm.getList()
+      })
+    }
+  },
+  created () {
+    this.getList()
+  },
+  components: {
+    pagination
+  }
+}
 </script>

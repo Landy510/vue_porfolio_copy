@@ -38,7 +38,7 @@
                   <validation-provider rules="required" v-slot="{ errors, classes }">
                     <div class="form-group">
                       <label for="username">收件人姓名<span class="text-danger ml-1 font-weight-bold">*</span></label>
-                      <input id="username" type="text" name="姓名" 
+                      <input id="username" type="text" name="姓名"
                         class="form-control" v-model="form.user.name" :class="classes" placeholder="輸入姓名" >
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
@@ -46,15 +46,15 @@
                   <validation-provider rules="required|email" v-slot="{ errors, classes }">
                     <div class="form-group">
                       <label for="email">Email<span class="text-danger ml-1 font-weight-bold">*</span></label>
-                      <input id="email" type="email" name="email" 
+                      <input id="email" type="email" name="email"
                         class="form-control" v-model="form.user.email" :class="classes" placeholder="請輸入信箱">
                       <span class="invalid-feedback">{{ errors[0] }}</span>
-                    </div>   
+                    </div>
                   </validation-provider>
                   <validation-provider rules="required" v-slot="{ errors, classes }">
                     <div class="form-group">
                       <label for="useraddress">收件人地址<span class="text-danger ml-1 font-weight-bold">*</span></label>
-                      <input id="useraddress" type="text" name="地址" 
+                      <input id="useraddress" type="text" name="地址"
                         class="form-control" v-model="form.user.address" :class="classes" placeholder="請輸入地址" >
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
@@ -62,7 +62,7 @@
                   <validation-provider rules="required" v-slot="{ errors, classes }">
                     <div class="form-group">
                       <label for="usertel">收件人電話<span class="text-danger ml-1 font-weight-bold">*</span></label>
-                      <input id="usertel" type="tel" name="電話" 
+                      <input id="usertel" type="tel" name="電話"
                         class="form-control" v-model="form.user.tel" :class="classes" placeholder="請輸入電話" >
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
@@ -75,7 +75,7 @@
                   </validation-provider>
                   <div class="text-right">
                     <button class="btn btn-danger" :disabled="invalid">送出訂單</button>
-                  </div>   
+                  </div>
                 </form>
               </validation-observer>
             </div>
@@ -138,110 +138,110 @@
 </template>
 
 <script>
-    import $ from 'jquery';
-    import Alert from '../AlertMessage';
-    import Navbar from '../Navbar';
-    import Footer from "../Footer";
-    export default {
-        name: 'Customer1',
-        data(){
-            return{
-               isLoading:false, 
-               carts:[],
-               total:0,
-               final_total:0,
-               coupon_code:'',
-               product_length:0,
-               form:{
-                    user:{
-                        name:'',
-                        email:'',
-                        tel:'',
-                        address:'',
-                    },
-                    message:''
-                }
-            }
+import $ from 'jquery'
+import Alert from '../AlertMessage'
+import Navbar from '../Navbar'
+import Footer from '../Footer'
+export default {
+  name: 'Customer1',
+  data () {
+    return {
+      isLoading: false,
+      carts: [],
+      total: 0,
+      final_total: 0,
+      coupon_code: '',
+      product_length: 0,
+      form: {
+        user: {
+          name: '',
+          email: '',
+          tel: '',
+          address: ''
         },
-        methods:{
-            getList(){
-              const vm = this;
-              const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-              vm.$http.get(api).then((response) => {  
-                vm.carts = response.data.data.carts;
-                vm.total = response.data.data.total;
-                vm.final_total = response.data.data.final_total;
-                console.log('最終的結果', vm.total);
-                console.log('最終的結果', vm.final_total);
-                vm.product_length = response.data.data.carts.length;
-              })
-            },
-            delProduct(id){
-                let vm = this;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`; 
-                vm.isLoading = true;
-                this.$http.delete(api).then((response)=>{
-                    if(response.data.success){
-                        vm.isLoading = false;
-                        vm.$bus.$emit('messsage:push', response.data.message, 'danger');
-                    } else {
-                        vm.isLoading = false;
-                        vm.$bus.$emit('messsage:push', response.data.message, 'danger');
-                    }
-                    vm.getList();
-                })
-            },
-            addCouponCode(){
-                const vm = this;
-                vm.isLoading = true;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
-                const coupon = {
-                    code:vm.coupon_code
-                }
-                this.$http.post(api, {data:coupon}).then((response) => {  
-                    this.getList();  
-                    vm.isLoading = false;
-                })
-            },
-            CounterCoupute(cart_total_length){
-                this.getList();
-                this.product_length = cart_total_length;
-            },
-            openCartContent(){
-                $('.cart_content').slideToggle(1000);
-                $('.arrow').toggleClass('active');
-            },
-            createOrder(){
-                const vm = this; 
-                const order = vm.form;
-                vm.isLoading = true;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
-                this.$http.post(api,{data:order}).then((response) => {  
-                    vm.isLoading = false;
-                })
-            },
-            submitForm() {
-                const vm = this; 
-                const order = vm.form;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
-                vm.isLoading = true;
-                this.$http.post(api,{data:order}).then((response) => {  
-                    if(response.data.success){
-                        vm.$router.push(`/customerOrder/CustomerCheckout/${response.data.orderId}`);  // 跳轉頁面
-                    }
-                })
-                vm.isLoading = false;
-            }
-        },
-        created(){
-            this.getList();
-        },
-        components:{
-          Alert,
-          Navbar,
-          Footer,
+        message: ''
+      }
+    }
+  },
+  methods: {
+    getList () {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      vm.$http.get(api).then((response) => {
+        vm.carts = response.data.data.carts
+        vm.total = response.data.data.total
+        vm.final_total = response.data.data.final_total
+        console.log('最終的結果', vm.total)
+        console.log('最終的結果', vm.final_total)
+        vm.product_length = response.data.data.carts.length
+      })
+    },
+    delProduct (id) {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
+      vm.isLoading = true
+      this.$http.delete(api).then((response) => {
+        if (response.data.success) {
+          vm.isLoading = false
+          vm.$bus.$emit('messsage:push', response.data.message, 'danger')
+        } else {
+          vm.isLoading = false
+          vm.$bus.$emit('messsage:push', response.data.message, 'danger')
         }
-    };
+        vm.getList()
+      })
+    },
+    addCouponCode () {
+      const vm = this
+      vm.isLoading = true
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`
+      const coupon = {
+        code: vm.coupon_code
+      }
+      this.$http.post(api, { data: coupon }).then((response) => {
+        this.getList()
+        vm.isLoading = false
+      })
+    },
+    CounterCoupute (cart_total_length) {
+      this.getList()
+      this.product_length = cart_total_length
+    },
+    openCartContent () {
+      $('.cart_content').slideToggle(1000)
+      $('.arrow').toggleClass('active')
+    },
+    createOrder () {
+      const vm = this
+      const order = vm.form
+      vm.isLoading = true
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`
+      this.$http.post(api, { data: order }).then((response) => {
+        vm.isLoading = false
+      })
+    },
+    submitForm () {
+      const vm = this
+      const order = vm.form
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`
+      vm.isLoading = true
+      this.$http.post(api, { data: order }).then((response) => {
+        if (response.data.success) {
+          vm.$router.push(`/customerOrder/CustomerCheckout/${response.data.orderId}`) // 跳轉頁面
+        }
+      })
+      vm.isLoading = false
+    }
+  },
+  created () {
+    this.getList()
+  },
+  components: {
+    Alert,
+    Navbar,
+    Footer
+  }
+}
 </script>
 
 <style scoped>

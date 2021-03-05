@@ -26,7 +26,7 @@
                 </tr>
             </tbody>
         </table>
-        
+
         <pagination :author="pagination" v-on:increment="getProducts"></pagination>
     </div>
 </template>
@@ -36,41 +36,41 @@ import Navbar from './Navbar'
 import pagination from './Pagination'
 export default {
   data () {
-      return {
-        pagination:{},
-        products:[],
-        tempProduct:{},
-        isNew: false,
-        isLoading: false,
-        Status:{
-            isUploading:false
-        },
-        customer_order:[]
-      }
-  },
-  methods:{
-        getProducts(page=1){
-            const vm = this;
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`; 
-            vm.isLoading = true;
-            vm.$http.get(api).then((response) => {
-                vm.isLoading = false;
-                console.log('商品',response.data);
-                let el = `"${response.data.orders[0].id}"`;
-                console.log('商品id',el);
-                console.log('取得的資料呢', response.data.orders[0].products);
-                vm.customer_order = response.data.orders;
-                vm.pagination = response.data.pagination;
-            })
-        },
-        
-    },
-    created(){
-        this.getProducts()
-    },
-    components:{
-        pagination,
-        Navbar
+    return {
+      pagination: {},
+      products: [],
+      tempProduct: {},
+      isNew: false,
+      isLoading: false,
+      Status: {
+        isUploading: false
+      },
+      customer_order: []
     }
+  },
+  methods: {
+    getProducts (page = 1) {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
+      vm.isLoading = true
+      vm.$http.get(api).then((response) => {
+        vm.isLoading = false
+        console.log('商品', response.data)
+        const el = `"${response.data.orders[0].id}"`
+        console.log('商品id', el)
+        console.log('取得的資料呢', response.data.orders[0].products)
+        vm.customer_order = response.data.orders
+        vm.pagination = response.data.pagination
+      })
+    }
+
+  },
+  created () {
+    this.getProducts()
+  },
+  components: {
+    pagination,
+    Navbar
+  }
 }
 </script>

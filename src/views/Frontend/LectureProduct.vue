@@ -114,11 +114,8 @@
                                     </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
                     <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
                         <div class="row">
@@ -145,23 +142,21 @@
                                     </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <Footer/>
     </div>
 </template>
 
 <script>
-import Navbar from './Navbar'
-import banner from './Introbanner'
+import Navbar from '../Navbar'
+import banner from '../Introbanner'
+import Footer from '../Footer'
 export default {
   data () {
     return {
@@ -189,10 +184,8 @@ export default {
           vm.products.forEach(item => {
             vm.$set(item, 'like', false)
           })
-          console.log('商品頁面中取得的', vm.products)
           vm.getLikeList()
         } else {
-          console.log(response.message)
           vm.isLoading = false
         }
       })
@@ -202,9 +195,7 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       vm.isLoading = true
       vm.$http.get(api).then((response) => {
-        console.log('購物的Modal', response)
         vm.product_length = response.data.data.carts.length
-        console.log('長度', vm.product_length)
         vm.isLoading = false
       })
     },
@@ -229,11 +220,10 @@ export default {
         }
       })
     },
-    CounterCoupute (cart_total_length) {
-      this.product_length = cart_total_length
+    CounterCoupute (cartTotalLength) {
+      this.product_length = cartTotalLength
     },
     getSelfProduct (id) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/${id}`
       this.$router.push(`/lecture/${id}`)
     },
     getCategory (str = 'All') {
@@ -243,52 +233,46 @@ export default {
     getLike (item) {
       const vm = this
       item.like = !item.like
-
-      const output_data = localStorage.getItem('LikeData')
-      const output_array = JSON.parse(output_data)
-      if (output_array === null) {
+      const outputData = localStorage.getItem('LikeData')
+      const outputArray = JSON.parse(outputData)
+      if (outputArray === null) {
         vm.likeList = []
-        const input_array = []
-        input_array.push(item)
-        vm.likeList = input_array
-        const input_data = JSON.stringify(input_array)
-        localStorage.setItem('LikeData', input_data)
+        const inputArray = []
+        inputArray.push(item)
+        vm.likeList = inputArray
+        const inputData = JSON.stringify(inputArray)
+        localStorage.setItem('LikeData', inputData)
         vm.$bus.$emit('messsage:push', '已加入我的最愛清單', 'success')
-        return
       } else {
         let hasElement = false
         vm.likeList = []
-
-        if (output_array.length !== 0) {
-          output_array.filter((obj, index) => {
+        if (outputArray.length !== 0) {
+          outputArray.filter((obj, index) => {
             if (obj.title === item.title) {
-              output_array.splice(index, 1)
+              outputArray.splice(index, 1)
               hasElement = true
               return true
             }
           })
           if (!hasElement) {
-            output_array.push(item)
+            outputArray.push(item)
             vm.$bus.$emit('messsage:push', '已加入我的最愛清單', 'success')
           }
         } else {
-          output_array.push(item)
+          outputArray.push(item)
           vm.$bus.$emit('messsage:push', '已加入我的最愛清單', 'success')
         }
-        vm.likeList = output_array
-
-        const input_array = output_array
-        const input_data = JSON.stringify(input_array)
-        localStorage.setItem('LikeData', input_data)
+        vm.likeList = outputArray
+        const inputArray = outputArray
+        const inputData = JSON.stringify(inputArray)
+        localStorage.setItem('LikeData', inputData)
       }
-      console.log('localStorage成員', vm.likeList)
     },
     getLikeList () {
       const vm = this
-      const output_data = localStorage.getItem('LikeData')
-      const output_array = JSON.parse(output_data)
-      vm.likeList = output_array
-      console.log('localStorage', vm.likeList)
+      const outputData = localStorage.getItem('LikeData')
+      const outputArray = JSON.parse(outputData)
+      vm.likeList = outputArray
     }
   },
   created () {
@@ -296,7 +280,8 @@ export default {
   },
   components: {
     Navbar,
-    banner
+    banner,
+    Footer
   },
   computed: {
     workoutArray: function () {

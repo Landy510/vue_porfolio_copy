@@ -1,37 +1,33 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-import Loading from 'vue-loading-overlay';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import Loading from 'vue-loading-overlay'
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue';
+import Login from '../views/Login.vue'
 
-import DashBoard from '../views/Backend/DashBoard.vue';
-import Coupon from '../views/Backend/Coupon.vue';
-import orderList from '../views/Backend/OrderList.vue';
-import Products from '../views/Backend/Products.vue';
+import DashBoard from '../views/Backend/DashBoard.vue'
+import Coupon from '../views/Backend/Coupon.vue'
+import orderList from '../views/Backend/OrderList.vue'
+import Products from '../views/Backend/Products.vue'
 
-import Lecture from '../views/Frontend/Lecture.vue';
-import Lecture_Product from '../views/Frontend/Lecture_Product.vue';
-import SelfProduct from '../views/Frontend/SelfProduct.vue';
+import Lecture from '../views/Frontend/Lecture.vue'
+import LectureProduct from '../views/Frontend/LectureProduct.vue'
+import SelfProduct from '../views/Frontend/SelfProduct.vue'
 
-import Company from '../views/Frontend/Company.vue';
-import locationInfo from '../views/Frontend/LocationInfo.vue';
-import CompanyDetail from '../views/Frontend/CompanyDetail.vue';
+import Company from '../views/Frontend/Company.vue'
+import locationInfo from '../views/Frontend/LocationInfo.vue'
+import CompanyDetail from '../views/Frontend/CompanyDetail.vue'
 
-import customerOrder from '../views/Frontend/CustomerOrder.vue';
-import Customer1 from '../views/Frontend/Customer1.vue';
-import Customer2 from '../views/Frontend/Customer2.vue';
-import CustomerCheckout from '../views/Frontend/CustomerCheckout.vue';
-import CustomerFinish from '../views/Frontend/CustomerFinish.vue';
-import '../../node_modules/vue-loading-overlay/dist/vue-loading'
-
-
+import customerOrder from '../views/Frontend/CustomerOrder.vue'
+import Customer1 from '../views/Frontend/Customer1.vue'
+import Customer2 from '../views/Frontend/Customer2.vue'
+import CustomerCheckout from '../views/Frontend/CustomerCheckout.vue'
+import CustomerFinish from '../views/Frontend/CustomerFinish.vue'
 
 Vue.use(VueRouter)
-Vue.use(VueAxios, axios);
-Vue.component('Loading', Loading);
-
+Vue.use(VueAxios, axios)
+Vue.component('Loading', Loading)
 
 const routes = [
   {
@@ -43,14 +39,14 @@ const routes = [
     path: '/lecture',
     name: 'Lecture',
     component: Lecture,
-    children:[
+    children: [
       {
-        path:'Lecture_Product',
-        name: 'Lecture_Product',
-        component: Lecture_Product
+        path: 'LectureProduct',
+        name: 'LectureProduct',
+        component: LectureProduct
       },
       {
-        path:':LectureId',
+        path: ':LectureId',
         name: 'SelfProduct',
         component: SelfProduct
       }
@@ -60,14 +56,14 @@ const routes = [
     path: '/Company',
     name: 'Company',
     component: Company,
-    children:[
+    children: [
       {
-        path:'locationInfo',
+        path: 'locationInfo',
         name: 'locationInfo',
         component: locationInfo
       },
       {
-        path:'CompanyDetail',
+        path: 'CompanyDetail',
         name: 'CompanyDetail',
         component: CompanyDetail
       }
@@ -77,27 +73,27 @@ const routes = [
     path: '/customerOrder',
     name: 'CustomerOrder',
     component: customerOrder,
-    children:[
+    children: [
       {
-        path:'customer1',
-        name:'customer1',
+        path: 'customer1',
+        name: 'customer1',
         component: Customer1
       },
       {
-        path:'customer2',
-        name:'customer2',
+        path: 'customer2',
+        name: 'customer2',
         component: Customer2
       },
       {
-        path:'CustomerCheckout/:orderId',
-        name:'CustomerCheckout',
+        path: 'CustomerCheckout/:orderId',
+        name: 'CustomerCheckout',
         component: CustomerCheckout
       },
       {
-        path:'CustomerFinish/:orderId',
-        name:'CustomerFinish',
+        path: 'CustomerFinish/:orderId',
+        name: 'CustomerFinish',
         component: CustomerFinish
-      },
+      }
     ]
   },
   {
@@ -110,31 +106,31 @@ const routes = [
     name: 'DashBoard',
     component: DashBoard,
     meta: { requiresAuth: true },
-    children:[
+    children: [
       {
-        path:'orderList',
+        path: 'orderList',
         name: 'orderList',
         component: orderList,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true }
       },
       {
-        path:'products',
+        path: 'products',
         name: 'Products',
         component: Products,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true }
       },
       {
-        path:'Coupon',
+        path: 'Coupon',
         name: 'Coupon',
         component: Coupon,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true }
       }
     ]
   },
   {
-    path:'*',
-    redirect:'/'
-  },
+    path: '*',
+    redirect: '/'
+  }
 ]
 
 const router = new VueRouter({

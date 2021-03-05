@@ -58,57 +58,57 @@
 </template>
 
 <script>
-    import Alert from '../AlertMessage';
-    import Navbar from '../Navbar';
-    import Footer from '../Footer';
-    export default {
-        name: 'Customer1',
-        data(){
-            return{
-               isLoading:false, 
-               orderId:'',
-               order:{
-                   user:{
-                       email:''
-                   }
-               },
-            }
-        },
-        methods:{
-            getList(){
-                const vm = this;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
-                vm.$http.get(api).then((response) => {
-                    vm.order = response.data.order;  
-                    console.log(vm.order);
-                })
-            },
-            CounterCoupute(cart_total_length){
-                this.getList();
-                this.product_length = cart_total_length;
-            },
-            payOrder(){
-              const vm = this;
-              const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
-              vm.isLoading = true;
-              vm.$http.post(api).then((response) => {
-                if(response.data.success){
-                  vm.$router.push(`/customerOrder/CustomerFinish/${vm.orderId}`);
-                  vm.isLoading = false;
-                }
-              })
-            }
-        },
-        created(){
-            this.orderId = this.$route.params.orderId;
-            this.getList();
-        },
-        components:{
-          Alert,
-          Navbar,
-          Footer,
+import Alert from '../AlertMessage'
+import Navbar from '../Navbar'
+import Footer from '../Footer'
+export default {
+  name: 'Customer1',
+  data () {
+    return {
+      isLoading: false,
+      orderId: '',
+      order: {
+        user: {
+          email: ''
         }
-    };
+      }
+    }
+  },
+  methods: {
+    getList () {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
+      vm.$http.get(api).then((response) => {
+        vm.order = response.data.order
+        console.log(vm.order)
+      })
+    },
+    CounterCoupute (cart_total_length) {
+      this.getList()
+      this.product_length = cart_total_length
+    },
+    payOrder () {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
+      vm.isLoading = true
+      vm.$http.post(api).then((response) => {
+        if (response.data.success) {
+          vm.$router.push(`/customerOrder/CustomerFinish/${vm.orderId}`)
+          vm.isLoading = false
+        }
+      })
+    }
+  },
+  created () {
+    this.orderId = this.$route.params.orderId
+    this.getList()
+  },
+  components: {
+    Alert,
+    Navbar,
+    Footer
+  }
+}
 </script>
 
 <style scoped>
@@ -135,7 +135,7 @@
   left:0;
   right:0;
   top:0;
-  bottom:0; 
+  bottom:0;
 }
 .order-title {
   position:relative;

@@ -11,32 +11,32 @@
             </div>
         </div>
     </div>
-    
+
   </div>
 </template>
 
 <script>
-import $ from 'jquery';
-    export default {
-        name: 'CartModal',
-        props:{
-            cart_detail: {
-                type: Array,
-            }
-        },
-        data(){
-            return{
-               cart_list:[]
-            }
-        },
-        methods:{
-            closeCartCover(){
-              $('.cart_list').removeClass('cartOpen');
-              $('.cart_list_cover').removeClass('cartOpen');
-            }
-        },
-        
-    };
+import $ from 'jquery'
+export default {
+  name: 'CartModal',
+  props: {
+    cart_detail: {
+      type: Array
+    }
+  },
+  data () {
+    return {
+      cart_list: []
+    }
+  },
+  methods: {
+    closeCartCover () {
+      $('.cart_list').removeClass('cartOpen')
+      $('.cart_list_cover').removeClass('cartOpen')
+    }
+  }
+
+}
 </script>
 
 <style scope>

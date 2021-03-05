@@ -23,7 +23,7 @@
                 <h2 class="h1 display-4">讓你更喜歡明天的自己</h2>
             </div>
           </div>
-          
+
         </div>
         <div class="container">
           <div class="row flex-row-reverse mb-5 no-gutters">
@@ -56,10 +56,10 @@
             </div>
             <div class="col-md-4 px-2 pt-3 pt-md-0">
               <h2 class="feature-title">常見問題</h2>
-              
+
               <ul class="list-group companyIntro">
                 <li class="list-group-item p-0 border-0">
-                  
+
                   <a href="#" class="btn d-block text-left rounded-0">注意事項
                     <font-awesome-icon :icon="['far', 'hand-point-down']" />
                   </a>
@@ -78,7 +78,7 @@
                   <a href="#" class="btn d-block text-left rounded-0">我適合那些課程呢?
                     <font-awesome-icon :icon="['far', 'hand-point-down']" />
                   </a>
-                  
+
                   <p class="hide-menu">
                  不管你是健身小白，還是重訓巨巨，我們都可以提供適合你狀況的課程
                   </p>
@@ -90,34 +90,33 @@
     </div>
 </template>
 
-
 <script>
-  import Navbar from './Navbar'
-  import $ from 'jquery'
-  export default {
-    data() {
-      return {
-        product_length:0
-      }
-    },
-    methods: {
-      CounterCoupute(cart_total_length){
-        this.product_length = cart_total_length;
-        }
-    },
-    components:{
-        Navbar
-    },
-    mounted(){
-      $('.companyIntro>li>a').click(function(e){
-        e.preventDefault();
-        $(this).toggleClass('bg-warning text-dark')
-        $(this).parent().find('.hide-menu').slideToggle();
-        $(this).parent().siblings().find('.hide-menu').slideUp();
-        $(this).parent().siblings().find('a').removeClass('bg-warning text-dark');
-      })
+import Navbar from './Navbar'
+import $ from 'jquery'
+export default {
+  data () {
+    return {
+      product_length: 0
     }
+  },
+  methods: {
+    CounterCoupute (cart_total_length) {
+      this.product_length = cart_total_length
+    }
+  },
+  components: {
+    Navbar
+  },
+  mounted () {
+    $('.companyIntro>li>a').click(function (e) {
+      e.preventDefault()
+      $(this).toggleClass('bg-warning text-dark')
+      $(this).parent().find('.hide-menu').slideToggle()
+      $(this).parent().siblings().find('.hide-menu').slideUp()
+      $(this).parent().siblings().find('a').removeClass('bg-warning text-dark')
+    })
   }
+}
 </script>
 
 <style scoped>

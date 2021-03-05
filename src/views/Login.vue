@@ -26,36 +26,34 @@
 </template>
 
 <script>
-  import Navbar from './Navbar';
-  import Footer from './Footer';
-  export default {
-    data() {
-      return {
-        user:{
-            username:'',
-            password:''
-        }
+import Footer from './Footer'
+export default {
+  data () {
+    return {
+      user: {
+        username: '',
+        password: ''
       }
-    },
-    methods: {
-      signin: function(){
-        const api = `${process.env.VUE_APP_APIPATH}/admin/signin`; 
-        const vm = this;
-        this.$http.post(api, vm.user).then((response)=>{
-          if(response.data.success){
-              const token = response.data.token;
-              const expired = response.data.expired;
-              document.cookie = `Berserkertoken=${token}; expires=${new Date(expired)}`;
-              vm.$router.push('/admin/orderList');
-          }
-        })
-      }
-    },
-    components:{
-        Navbar,
-        Footer,
     }
+  },
+  methods: {
+    signin: function () {
+      const api = `${process.env.VUE_APP_APIPATH}/admin/signin`
+      const vm = this
+      this.$http.post(api, vm.user).then((response) => {
+        if (response.data.success) {
+          const token = response.data.token
+          const expired = response.data.expired
+          document.cookie = `Berserkertoken=${token}; expires=${new Date(expired)}`
+          vm.$router.push('/admin/orderList')
+        }
+      })
+    }
+  },
+  components: {
+    Footer
   }
+}
 </script>
 
 <style scoped>

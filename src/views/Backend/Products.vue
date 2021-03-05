@@ -48,7 +48,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                
+
                 <div class="modal-body">
                     <div class="row">
                     <div class="col-sm-4">
@@ -126,7 +126,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary" @click="updateproduct">確認</button>
                 </div>
-                
+
                 </div>
             </div>
         </div>
@@ -158,108 +158,106 @@
 
 <script>
 import $ from 'jquery'
-import Navbar from '../Navbar'
 import pagination from '../Pagination'
 export default {
   data () {
-      return {
-        pagination:{},
-        products:[],
-        tempProduct:{},
-        isNew: false,
-        isLoading: false,
-        status:{
-            isUploading:false
-        }
+    return {
+      pagination: {},
+      products: [],
+      tempProduct: {},
+      isNew: false,
+      isLoading: false,
+      status: {
+        isUploading: false
       }
-  },
-  methods:{
-        getProducts(page=1){
-            const vm = this;
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`; 
-            vm.isLoading = true;
-            console.log('後臺商品', api);
-            vm.$http.get(api).then((response) => {
-                console.log('後臺商品', api);
-                vm.isLoading = false;
-                vm.products = response.data.products;
-                vm.pagination = response.data.pagination;
-                console.log('後臺商品', response);
-            })
-        },
-        openModal(isNew, item){
-            $('#productModal').modal('show');
-			if(isNew){
-				this.tempProduct = {};
-				this.isNew = true;
-			} else{
-        this.tempProduct = {...item};
-				this.isNew = false;
-			} 
-		},
-        delModal(item){
-            $('#delProductModal').modal('show');
-            this.tempProduct = {...item}; 
-        },
-        Delproduct(){
-            const vm = this;
-            let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
-            this.$http.delete(api).then((response) => {
-                if(response.data.success){
-                    $('#delProductModal').modal('hide');
-                    vm.getProducts();
-                } else{
-                    $('#delProductModal').modal('hide');
-                    vm.getProducts();
-                } 
-            })
-        },
-        updateproduct(){
-            const vm = this;
-            let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
-            let httpMethod = 'post';
-            if(!vm.isNew){
-                api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-                httpMethod = 'put';
-            }
-            this.$http[httpMethod](api, {data: vm.tempProduct}).then((response) => {
-                if(response.data.success){
-                    $('#productModal').modal('hide');
-                    vm.getProducts();
-                } else {
-                    $('#productModal').modal('hide');
-                    vm.getProducts();
-                }
-            })
-        },
-        uploadFile(){
-            const uploadFile = this.$refs.files.files[0];
-            const vm = this;
-            const formData = new FormData(); 
-            vm.status.isUploading = true;
-            formData.append('file-to-upload', uploadFile);
-            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
-            vm.$http.post(url, formData, {
-                headers:{
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then((response)=>{
-                vm.status.isUploading = false;
-                if(response.data.success){
-                    vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
-                    vm.$bus.$emit('messsage:push', '上傳成功', 'success');
-                } else {
-                    vm.$bus.$emit('messsage:push', response.data.message, 'danger');
-                }
-            })
-        }
-    },
-    created(){
-        this.getProducts()
-    },
-    components:{
-        pagination,
-        Navbar
     }
+  },
+  methods: {
+    getProducts (page = 1) {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`
+      vm.isLoading = true
+      console.log('後臺商品', api)
+      vm.$http.get(api).then((response) => {
+        console.log('後臺商品', api)
+        vm.isLoading = false
+        vm.products = response.data.products
+        vm.pagination = response.data.pagination
+        console.log('後臺商品', response)
+      })
+    },
+    openModal (isNew, item) {
+      $('#productModal').modal('show')
+      if (isNew) {
+        this.tempProduct = {}
+        this.isNew = true
+      } else {
+        this.tempProduct = { ...item }
+        this.isNew = false
+      }
+    },
+    delModal (item) {
+      $('#delProductModal').modal('show')
+      this.tempProduct = { ...item }
+    },
+    Delproduct () {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
+      this.$http.delete(api).then((response) => {
+        if (response.data.success) {
+          $('#delProductModal').modal('hide')
+          vm.getProducts()
+        } else {
+          $('#delProductModal').modal('hide')
+          vm.getProducts()
+        }
+      })
+    },
+    updateproduct () {
+      const vm = this
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`
+      let httpMethod = 'post'
+      if (!vm.isNew) {
+        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
+        httpMethod = 'put'
+      }
+      this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
+        if (response.data.success) {
+          $('#productModal').modal('hide')
+          vm.getProducts()
+        } else {
+          $('#productModal').modal('hide')
+          vm.getProducts()
+        }
+      })
+    },
+    uploadFile () {
+      const uploadFile = this.$refs.files.files[0]
+      const vm = this
+      const formData = new FormData()
+      vm.status.isUploading = true
+      formData.append('file-to-upload', uploadFile)
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`
+      vm.$http.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then((response) => {
+        vm.status.isUploading = false
+        if (response.data.success) {
+          vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl)
+          vm.$bus.$emit('messsage:push', '上傳成功', 'success')
+        } else {
+          vm.$bus.$emit('messsage:push', response.data.message, 'danger')
+        }
+      })
+    }
+  },
+  created () {
+    this.getProducts()
+  },
+  components: {
+    pagination
+  }
 }
 </script>

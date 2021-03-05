@@ -6,8 +6,8 @@
                     <font-awesome-icon :icon="['fas','bars']" size="lg"></font-awesome-icon>
                 </span>
             </button>
-            <router-link to="/" class="mx-auto navbar-brand py-0 text-dark font-weight-bold d-flex bg-transparent shadow-none">       
-                    <h1 class="h5 m-0">         
+            <router-link to="/" class="mx-auto navbar-brand py-0 text-dark font-weight-bold d-flex bg-transparent shadow-none">
+                    <h1 class="h5 m-0">
                         <img src="../assets/img/protectionshield.svg" width="30" height="30" class="d-inline-block align-top" alt="Berserker Fitness Logo">
                         <span class="ml-1 my-auto Brand_logo">Berserker Fitness</span>
                     </h1>
@@ -24,14 +24,14 @@
                         <router-link to="/" class="nav-link text-dark">首頁</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/lecture/Lecture_Product" class="nav-link text-dark">課程</router-link>              
+                        <router-link to="/lecture/Lecture_Product" class="nav-link text-dark">課程</router-link>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
                         <a class="nav-link location_search" href="#" title="了解我們">
                             <font-awesome-icon :icon="['fas', 'map-marker-alt']" />
-                        </a> 
+                        </a>
                     </li>
                     <li class="nav-item active">
                         <router-link to="/login" class="nav-link login_status" title="管理者登入">
@@ -40,8 +40,8 @@
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link likeButton" :class="{'text-danger':likeList.length!==0}" href="#" title="我的最愛" data-toggle="dropdown">
-                            <font-awesome-icon :icon="['far','heart']" size="lg"></font-awesome-icon>  
-                        </a> 
+                            <font-awesome-icon :icon="['far','heart']" size="lg"></font-awesome-icon>
+                        </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuReference" style="min-width:400px;">
                             <div class="px-4">
                                 <table class="table">
@@ -67,7 +67,7 @@
                                     </tbody>
                                     <tbody v-else class="text-danger">沒有我的最愛清單</tbody>
                                 </table>
-                            </div>  
+                            </div>
                             </div>
                     </li>
                     <li class="nav-item active">
@@ -75,7 +75,7 @@
                             <a class="nav-link text-dark" href="#" @click="signOut">登出</a>
                         </router-link>
                     </li>
-                    
+
                     <li class="nav-item d-none d-lg-block" style="position:relative">
                         <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#exampleModalLong" @click="getList">
                             <font-awesome-icon :icon="['fas', 'cart-arrow-down']"/>
@@ -86,20 +86,20 @@
             </div>
         </nav>
         <!---->
-        <div class="lecture_hide p-4 bg-light">  
+        <div class="lecture_hide p-4 bg-light">
             <div class="d-flex">
                     <div class="card rounded-0 border-0 mr-3 bg-light" style="width: 18rem;">
                         <img class="card-img-top" src="https://upload.cc/i1/2021/02/16/XaFwDo.jpg" alt="了解Berserker Fitness圖片">
                         <div class="card-body p-0 text-center mt-3">
-                            <font-awesome-icon :icon="['fas', 'caret-right']" /> 
-                            <router-link to="/Company/CompanyDetail" class="location_search_btn ml-2">了解Berserker Fitness</router-link> 
+                            <font-awesome-icon :icon="['fas', 'caret-right']" />
+                            <router-link to="/Company/CompanyDetail" class="location_search_btn ml-2">了解Berserker Fitness</router-link>
                         </div>
                     </div>
                     <div class="card rounded-0 border-0 bg-light" style="width: 18rem;">
                         <img class="card-img-top location_part" src="https://upload.cc/i1/2021/02/16/rcGXwH.jpg" alt="了解Berserker Fitness據點查詢圖片">
                         <div class="card-body p-0 text-center mt-3">
                             <font-awesome-icon :icon="['fas', 'caret-right']" />
-                            <router-link to="/Company/LocationInfo" class="location_search_btn ml-2">Berserker Fitness據點查詢</router-link>  
+                            <router-link to="/Company/LocationInfo" class="location_search_btn ml-2">Berserker Fitness據點查詢</router-link>
                         </div>
                     </div>
             </div>
@@ -119,11 +119,11 @@
                                 <img class="card-img-top" :src="item.product.imageUrl" :alt="`${item.product.title}課程圖片`">
                                 <div class="card-body">
                                     <h3 class="card-title">{{ item.product.title }}</h3>
-                                    <h3 class="card-text">{{ item.product.price| currency }} 元</h3> 
+                                    <h3 class="card-text">{{ item.product.price| currency }} 元</h3>
                                     <div class="d-flex justify-content-between align-items-end">
-                                        <span class="card-text h5">{{ item.qty }} /{{ item.product.unit }}</span>  
-                                        <button type="button" class="btn btn-outline-danger" @click="delProduct(item.id)"><font-awesome-icon :icon="['fas', 'trash-alt']"/></button>  
-                                    </div>  
+                                        <span class="card-text h5">{{ item.qty }} /{{ item.product.unit }}</span>
+                                        <button type="button" class="btn btn-outline-danger" @click="delProduct(item.id)"><font-awesome-icon :icon="['fas', 'trash-alt']"/></button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="bg-light p-4 h3 d-sm-flex justify-content-between mb-0" style="position:sticky; bottom:0;">總金額 {{ total_price| currency }}
@@ -141,210 +141,209 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import CartModal from "./Cart_modal.vue";
+import $ from 'jquery'
 export default {
   name: 'Navbar',
-  props:{
-      'product_num':Number,
-      'likeArray': {
-          type: Array,
-          default:function () {
-            return []
-          }
+  props: {
+    product_num: Number,
+    likeArray: {
+      type: Array,
+      default: function () {
+        return []
       }
+    }
   },
   data () {
-      return{
-          cart:[],
-          cartData:JSON.parse(localStorage.getItem('carData')) || [],  // 取出localStorage資料
-          total_price:0,
-          total_length:0,
-          Status:{
-              isUploading:false
-          },
-          counter:0,
-          cartLength:0,
-          likeList:this.likeArray
-      }
+    return {
+      cart: [],
+      cartData: JSON.parse(localStorage.getItem('carData')) || [], // 取出localStorage資料
+      total_price: 0,
+      total_length: 0,
+      Status: {
+        isUploading: false
+      },
+      counter: 0,
+      cartLength: 0,
+      likeList: this.likeArray
+    }
   },
-  methods:{
-      signOut:function(){
-        const api = `${process.env.VUE_APP_APIPATH}/logout`; 
-        this.$http.post(api).then((response)=>{
-            let vm = this;
-            $('.login_status').css('color', 'red');
-            if(response.data.success){
-                vm.$router.push('/login');
-            }
-        })
-      },
-      getList(){
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-        vm.Status.isUploading = true;
-        vm.$http.get(api).then((response) => {  
-          vm.cart = response.data.data.carts;
-          localStorage.setItem('cartData', JSON.stringify(vm.cart));
-          vm.cartData = JSON.parse(localStorage.getItem('cartData')) || [];
-          if(response.data.success){
-            vm.Status.isUploading = false;
-            vm.total_price = response.data.data.total;
-            vm.total_length = response.data.data.carts.length;
-            vm.getcartLength();
-          }
-        })
-      },
-      getLike(){
-          let vm = this;
-          let output_data = localStorage.getItem('LikeData');
-          let output_array = JSON.parse(output_data);
-          if(output_array===null) return;
-          else vm.likeList = output_array;
-      },
-      addToCart(data){
-        const vm = this;
-        const cartID = [];
-        vm.cartData = JSON.parse(localStorage.getItem('cartData')) || [];
-        vm.cartData.forEach((item, index) => {
-          cartID.push(item.product_id);
-        })
-        if(cartID.indexOf(data.id) === -1) {
-          console.log('沒有這份資料');
-          let cartContent = {
-            product_id: data.id,
-            qty: 1, 
-            name: data.title,
-            origin_price: data.origin_price,
-            price: data.price,
-          }
-          vm.cartData.push(cartContent);
-          localStorage.setItem('cartData', JSON.stringify(vm.cartData));
-        } else {
-          console.log('有這份資料');
-          let cache = {};   
-          vm.cartData.forEach((item, index) => {
-            if(item.product_id === data.id) {
-              cache = {
-                product_id: data.id,
-                qty: item.qty+=1,
-                name: data.title,
-                origin_price: data.origin_price,
-                price: data.price,
-              };
-              vm.cartData.splice(index, 1);
-            }
-          })
-          vm.cartData.push(cache);
-          localStorage.setItem('cartData', JSON.stringify(vm.cartData));
+  methods: {
+    signOut: function () {
+      const api = `${process.env.VUE_APP_APIPATH}/logout`
+      this.$http.post(api).then((response) => {
+        const vm = this
+        $('.login_status').css('color', 'red')
+        if (response.data.success) {
+          vm.$router.push('/login')
         }
-        vm.$bus.$emit('messsage:push', '已加入購物車', 'success');
-        vm.removeLike(data);
-        vm.postCart();
-      },
-      postCart() {
-        const vm = this;
-        vm.isLoading = true;
-        const cacheID = [];
-        vm.axios.get(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`)
-          .then((res) => {
-          const cacheData = res.data.data.carts;
+      })
+    },
+    getList () {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
+      vm.Status.isUploading = true
+      vm.$http.get(api).then((response) => {
+        vm.cart = response.data.data.carts
+        localStorage.setItem('cartData', JSON.stringify(vm.cart))
+        vm.cartData = JSON.parse(localStorage.getItem('cartData')) || []
+        if (response.data.success) {
+          vm.Status.isUploading = false
+          vm.total_price = response.data.data.total
+          vm.total_length = response.data.data.carts.length
+          vm.getcartLength()
+        }
+      })
+    },
+    getLike () {
+      const vm = this
+      const outputData = localStorage.getItem('LikeData')
+      let outputArray = JSON.parse(outputData)
+      if (outputArray === null) {
+        outputArray = []
+      } else {
+        vm.likeList = outputArray
+      }
+    },
+    addToCart (data) {
+      const vm = this
+      const cartID = []
+      vm.cartData = JSON.parse(localStorage.getItem('cartData')) || []
+      vm.cartData.forEach((item, index) => {
+        cartID.push(item.product_id)
+      })
+      if (cartID.indexOf(data.id) === -1) {
+        console.log('沒有這份資料')
+        const cartContent = {
+          product_id: data.id,
+          qty: 1,
+          name: data.title,
+          origin_price: data.origin_price,
+          price: data.price
+        }
+        vm.cartData.push(cartContent)
+        localStorage.setItem('cartData', JSON.stringify(vm.cartData))
+      } else {
+        console.log('有這份資料')
+        let cache = {}
+        vm.cartData.forEach((item, index) => {
+          if (item.product_id === data.id) {
+            cache = {
+              product_id: data.id,
+              qty: item.qty += 1,
+              name: data.title,
+              origin_price: data.origin_price,
+              price: data.price
+            }
+            vm.cartData.splice(index, 1)
+          }
+        })
+        vm.cartData.push(cache)
+        localStorage.setItem('cartData', JSON.stringify(vm.cartData))
+      }
+      vm.$bus.$emit('messsage:push', '已加入購物車', 'success')
+      vm.removeLike(data)
+      vm.postCart()
+    },
+    postCart () {
+      const vm = this
+      vm.isLoading = true
+      const cacheID = []
+      vm.axios.get(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`)
+        .then((res) => {
+          const cacheData = res.data.data.carts
           cacheData.forEach((item) => {
-            cacheID.push(item.id);
-          });
-          }).then(() => {
+            cacheID.push(item.id)
+          })
+        }).then(() => {
           cacheID.forEach((item) => {
             vm.axios.delete(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item}`).then(() => {
-              console.log('購物車已經清空');
-            });
-          });
-          }).then(() => {
+              console.log('購物車已經清空')
+            })
+          })
+        }).then(() => {
           vm.cartData.forEach((item) => {
             const cache = {
               product_id: item.product_id,
-              qty: item.qty,
-            };
+              qty: item.qty
+            }
             vm.axios.post(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`, { data: cache })
-            .then(() => {
-              vm.cartData = [];
-              localStorage.removeItem('cartData');
-              vm.isLoading = false;
-              vm.getList();
-            });
-          });
-          });
-      }, 
-      callCart(){
-        $('.cart_list').addClass('cartOpen');
-        $('.cart_list_cover').addClass('cartOpen');
-        this.getList();
-      },
-      delProduct(id){
-        let vm = this;     
-        vm.Status.isUploading = true;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`; 
-        vm.$http.delete(api).then((response)=>{
-          if(response.data.success){
-            vm.getList();
-            $('#exampleModalLong').modal('hide');
-            vm.$bus.$emit('messsage:push', response.data.message, 'danger');
-            vm.Status.isUploading = false;
-          } else {
-            vm.getList();
-            $('#exampleModalLong').modal('hide');
-            vm.$bus.$emit('messsage:push', response.data.message, 'danger');
-            vm.Status.isUploading = false;
+              .then(() => {
+                vm.cartData = []
+                localStorage.removeItem('cartData')
+                vm.isLoading = false
+                vm.getList()
+              })
+          })
+        })
+    },
+    callCart () {
+      $('.cart_list').addClass('cartOpen')
+      $('.cart_list_cover').addClass('cartOpen')
+      this.getList()
+    },
+    delProduct (id) {
+      const vm = this
+      vm.Status.isUploading = true
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
+      vm.$http.delete(api).then((response) => {
+        if (response.data.success) {
+          vm.getList()
+          $('#exampleModalLong').modal('hide')
+          vm.$bus.$emit('messsage:push', response.data.message, 'danger')
+          vm.Status.isUploading = false
+        } else {
+          vm.getList()
+          $('#exampleModalLong').modal('hide')
+          vm.$bus.$emit('messsage:push', response.data.message, 'danger')
+          vm.Status.isUploading = false
+        }
+      })
+    },
+    closeModal () {
+      $('#exampleModalLong').modal('hide')
+    },
+    getcartLength () {
+      const vm = this
+      vm.cartLength = vm.total_length
+      vm.$emit('increment', Number(vm.cartLength))
+    },
+    removeLike (item) {
+      const vm = this
+      const outputData = localStorage.getItem('LikeData')
+      const outputArray = JSON.parse(outputData)
+      if (outputArray.length !== 0) {
+        outputArray.filter((obj, index) => {
+          if (obj.title === item.title) {
+            outputArray.splice(index, 1)
           }
         })
-      },
-      closeModal(){
-          $('#exampleModalLong').modal('hide');
-      },
-      getcartLength(){
-          let vm = this;
-          vm.cartLength = vm.total_length;
-          vm.$emit('increment', Number(vm.cartLength));
-      },
-      removeLike(item){
-          let vm = this;
-          let output_data = localStorage.getItem('LikeData');
-          let output_array = JSON.parse(output_data);
-          if(output_array.length!==0){
-            output_array.filter((obj, index) => {
-                if(obj.title===item.title){
-                    output_array.splice(index, 1);
-                }
-            })
-          }        
-          let input_data = JSON.stringify(output_array);
-          localStorage.setItem('LikeData', input_data);
-          vm.getLike();     
       }
+      const inputData = JSON.stringify(outputArray)
+      localStorage.setItem('LikeData', inputData)
+      vm.getLike()
+    }
   },
-  created: function(){
-    const api = `${process.env.VUE_APP_APIPATH}/api/user/check`; 
-    this.$http.post(api).then((response)=>{
-        if(response.data.success){
-            $('.login_status').css('color', 'green');
-        } else {
-            $('.login_status').css('color', 'red');
-        }
+  created: function () {
+    const api = `${process.env.VUE_APP_APIPATH}/api/user/check`
+    this.$http.post(api).then((response) => {
+      if (response.data.success) {
+        $('.login_status').css('color', 'green')
+      } else {
+        $('.login_status').css('color', 'red')
+      }
     })
-    this.getList();
-    this.getLike();
+    this.getList()
+    this.getLike()
   },
-  mounted(){
-      $('.location_search').on('click', function(){
-          $('.lecture_hide').slideToggle();
-      })
+  mounted () {
+    $('.location_search').on('click', function () {
+      $('.lecture_hide').slideToggle()
+    })
   },
-  watch:{
-      likeArray: function() {
-          this.likeList = this.likeArray; 
-      }
-  },
-  components:{
-      CartModal
+  watch: {
+    likeArray: function () {
+      this.likeList = this.likeArray
+    }
   }
 }
 </script>
@@ -392,4 +391,3 @@ export default {
   }
 }
 </style>
-

@@ -19,22 +19,22 @@
 </template>
 
 <script>
-    export default {
-        name: 'Pagination',
-        props:{
-            author:{}
-        },
-        data(){
-            return{
-                pagination:'',
-                changePage:''
-            }
-        },
-        methods:{
-            getPagination(page){
-                this.changePage = page; 
-                this.$emit('increment',Number(this.changePage));
-            }
-        }
-    };
+export default {
+  name: 'Pagination',
+  props: {
+    author: {}
+  },
+  data () {
+    return {
+      pagination: '',
+      changePage: ''
+    }
+  },
+  methods: {
+    getPagination (page) {
+      this.changePage = page
+      this.$emit('increment', Number(this.changePage))
+    }
+  }
+}
 </script>
