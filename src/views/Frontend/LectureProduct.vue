@@ -4,6 +4,7 @@
         <div class="vld-parent">
             <loading :active.sync="isLoading"></loading>
         </div>
+        <!--
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0">
                 <li class="breadcrumb-item">
@@ -13,6 +14,7 @@
                 <li class="breadcrumb-item active text-dark" aria-current="page">All</li>
             </ol>
         </nav>
+        -->
         <banner :introImage="image_website" :introImage_1="image_website1" :introImage_2="image_website2"></banner>
         <div class="h2 text-center Lecture_title py-4 border-bottom">{{ Lecture_title }}</div>
         <div class="container mt-5">
@@ -31,23 +33,24 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row py-2 Recommended_class_frame">
-                                            <div class="col-md-6 col-lg-4 Recommended_class mb-2" v-for="(item, index) in products" :key="index">
-                                            <div class="card h-100" >
-                                                <div class="h-60 card_image">
-                                                    <img class="card-img-top h-100" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
-                                                    <button type="button" class="btn btn-outline-dark bg-dark text-light w-100 card_btn d-none d-md-block rounded-0" @click="getSelfProduct(item.id)">前往課程一覽</button>
+                                            <div class="col-md-6 col-lg-4 Recommended_class mb-4" v-for="(item, index) in products" :key="index">
+                                              <a href="#" class="lecture_card d-block text-dark" @click.prevent="getSelfProduct(item.id)">
+                                                <div class="card h-100" >
+                                                  <div class="h-60 card_image">
+                                                      <img class="card-img-top rounded-0 card_imag_image" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
+                                                  </div>
+                                                  <div class="card-body p-0 pb-1">
+                                                      <p class="card-text mb-0 d-flex justify-content-between pt-2 medium-text font-weight-bold px-2">{{ item.title }}
+                                                          <font-awesome-icon :class="{'text-danger':item.like}" :icon="['far','heart']" size="lg" @click="getLike(item)"></font-awesome-icon>
+                                                      </p>
+                                                      <div class="d-flex justify-content-between align-items-end px-2">
+                                                          <del class="text-muted">原價{{ item.origin_price }}元</del>
+                                                          <strong class="h5 mb-0">現在只要<span class="text-danger">{{ item.price }}</span>元</strong>
+                                                      </div>
+                                                  </div>
                                                 </div>
-                                                <div class="card-body p-0">
-                                                    <p class="card-text mb-0 d-flex justify-content-between pt-2 medium-text">{{ item.title }}
-                                                        <font-awesome-icon :class="{'text-danger':item.like}" :icon="['far','heart']" size="lg" @click="getLike(item)"></font-awesome-icon>
-                                                    </p>
-                                                    <div class="d-flex justify-content-between align-items-end">
-                                                        <del class="text-muted">原價{{ item.origin_price| currency }}元</del>
-                                                        <strong class="h5 mb-0">現在只要<span class="text-danger">{{ item.price| currency }}</span>元</strong>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="btn btn-outline-dark d-block d-md-none rounded-0" @click="getSelfProduct(item.id)">前往課程一覽</button>
-                                            </div>
+                                              </a>
+                                              <button type="button" class="btn btn-outline-dark d-block d-md-none rounded-0 w-100" @click="getSelfProduct(item.id)">前往課程一覽</button>
                                             </div>
                                         </div>
 
@@ -59,23 +62,24 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="row py-2 Recommended_class_frame">
-                                    <div class="col-md-6 col-lg-4 Recommended_class mb-2" v-for="(item, index) in workoutArray" :key="index">
-                                    <div class="card h-100" >
-                                        <div class="h-60 card_image">
-                                            <img class="card-img-top h-100" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
-                                            <button type="button" class="btn btn-outline-dark bg-dark text-light w-100 card_btn d-none d-md-block rounded-0" @click="getSelfProduct(item.id)">前往課程一覽</button>
+                                    <div class="col-md-6 col-lg-4 Recommended_class mb-4" v-for="(item, index) in workoutArray" :key="index">
+                                      <a href="#" class="lecture_card d-block text-dark" @click.prevent="getSelfProduct(item.id)">
+                                        <div class="card h-100" >
+                                          <div class="h-60 card_image">
+                                              <img class="card-img-top rounded-0 card_imag_image" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
+                                          </div>
+                                          <div class="card-body p-0 pb-1">
+                                              <p class="card-text mb-0 d-flex justify-content-between pt-2 medium-text font-weight-bold px-2">{{ item.title }}
+                                                  <font-awesome-icon :class="{'text-danger':item.like}" :icon="['far','heart']" size="lg" @click="getLike(item)"></font-awesome-icon>
+                                              </p>
+                                              <div class="d-flex justify-content-between align-items-end px-2">
+                                                  <del class="text-muted">原價{{ item.origin_price }}元</del>
+                                                  <strong class="h5 mb-0">現在只要<span class="text-danger">{{ item.price }}</span>元</strong>
+                                              </div>
+                                          </div>
                                         </div>
-                                        <div class="card-body p-0">
-                                            <p class="card-text mb-0 d-flex justify-content-between pt-2 medium-text">{{ item.title }}
-                                                <font-awesome-icon :class="{'text-danger':item.like}" :icon="['far','heart']" size="lg" @click="getLike(item)"></font-awesome-icon>
-                                            </p>
-                                            <div class="d-flex justify-content-between align-items-end">
-                                                <del class="text-muted">原價{{ item.origin_price }}元</del>
-                                                <strong class="h5 mb-0">現在只要<span class="text-danger">{{ item.price }}</span>元</strong>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-outline-dark d-block d-md-none rounded-0" @click="getSelfProduct(item.id)">前往課程一覽</button>
-                                    </div>
+                                      </a>
+                                      <button type="button" class="btn btn-outline-dark d-block d-md-none rounded-0 w-100" @click="getSelfProduct(item.id)">前往課程一覽</button>
                                     </div>
                                 </div>
 
@@ -87,23 +91,24 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="row py-2 Recommended_class_frame">
-                                    <div class="col-md-6 col-lg-4 Recommended_class mb-2" v-for="(item, index) in aerobicArray" :key="index">
-                                    <div class="card h-100" >
-                                        <div class="h-60 card_image">
-                                            <img class="card-img-top h-100" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
-                                            <button type="button" class="btn btn-outline-dark bg-dark text-light w-100 card_btn d-none d-md-block rounded-0" @click="getSelfProduct(item.id)">前往課程一覽</button>
+                                    <div class="col-md-6 col-lg-4 Recommended_class mb-4" v-for="(item, index) in aerobicArray" :key="index">
+                                      <a href="#" class="lecture_card d-block text-dark" @click.prevent="getSelfProduct(item.id)">
+                                        <div class="card h-100" >
+                                          <div class="h-60 card_image">
+                                              <img class="card-img-top rounded-0 card_imag_image" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
+                                          </div>
+                                          <div class="card-body p-0 pb-1">
+                                              <p class="card-text mb-0 d-flex justify-content-between pt-2 medium-text font-weight-bold px-2">{{ item.title }}
+                                                  <font-awesome-icon :class="{'text-danger':item.like}" :icon="['far','heart']" size="lg" @click="getLike(item)"></font-awesome-icon>
+                                              </p>
+                                              <div class="d-flex justify-content-between align-items-end px-2">
+                                                  <del class="text-muted">原價{{ item.origin_price }}元</del>
+                                                  <strong class="h5 mb-0">現在只要<span class="text-danger">{{ item.price }}</span>元</strong>
+                                              </div>
+                                          </div>
                                         </div>
-                                        <div class="card-body p-0">
-                                            <p class="card-text mb-0 d-flex justify-content-between pt-2 medium-text">{{ item.title }}
-                                                <font-awesome-icon :class="{'text-danger':item.like}" :icon="['far','heart']" size="lg" @click="getLike(item)"></font-awesome-icon>
-                                            </p>
-                                            <div class="d-flex justify-content-between align-items-end">
-                                                <del class="text-muted">原價{{ item.origin_price }}元</del>
-                                                <strong class="h5 mb-0">現在只要<span class="text-danger">{{ item.price }}</span>元</strong>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-outline-dark d-block d-md-none rounded-0" @click="getSelfProduct(item.id)">前往課程一覽</button>
-                                    </div>
+                                      </a>
+                                      <button type="button" class="btn btn-outline-dark d-block d-md-none rounded-0 w-100" @click="getSelfProduct(item.id)">前往課程一覽</button>
                                     </div>
                                 </div>
                             </div>
@@ -113,23 +118,24 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="row py-2 Recommended_class_frame">
-                                    <div class="col-md-6 col-lg-4 Recommended_class mb-2" v-for="(item, index) in dietArray" :key="index">
-                                    <div class="card h-100" >
-                                        <div class="h-60 card_image">
-                                            <img class="card-img-top h-100" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
-                                            <button type="button" class="btn btn-outline-dark bg-dark text-light w-100 card_btn d-none d-md-block rounded-0" @click="getSelfProduct(item.id)">前往課程一覽</button>
+                                    <div class="col-md-6 col-lg-4 Recommended_class mb-4" v-for="(item, index) in dietArray" :key="index">
+                                      <a href="#" class="lecture_card d-block text-dark" @click.prevent="getSelfProduct(item.id)">
+                                        <div class="card h-100" >
+                                          <div class="h-60 card_image">
+                                              <img class="card-img-top rounded-0 card_imag_image" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
+                                          </div>
+                                          <div class="card-body p-0 pb-1">
+                                              <p class="card-text mb-0 d-flex justify-content-between pt-2 medium-text font-weight-bold px-2">{{ item.title }}
+                                                  <font-awesome-icon :class="{'text-danger':item.like}" :icon="['far','heart']" size="lg" @click="getLike(item)"></font-awesome-icon>
+                                              </p>
+                                              <div class="d-flex justify-content-between align-items-end px-2">
+                                                  <del class="text-muted">原價{{ item.origin_price }}元</del>
+                                                  <strong class="h5 mb-0">現在只要<span class="text-danger">{{ item.price }}</span>元</strong>
+                                              </div>
+                                          </div>
                                         </div>
-                                        <div class="card-body p-0">
-                                            <p class="card-text mb-0 d-flex justify-content-between pt-2 medium-text">{{ item.title }}
-                                                <font-awesome-icon :class="{'text-danger':item.like}" :icon="['far','heart']" size="lg" @click="getLike(item)"></font-awesome-icon>
-                                            </p>
-                                            <div class="d-flex justify-content-between align-items-end">
-                                                <del class="text-muted">原價{{ item.origin_price }}元</del>
-                                                <strong class="h5 mb-0">現在只要<span class="text-danger">{{ item.price }}</span>元</strong>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-outline-dark d-block d-md-none rounded-0" @click="getSelfProduct(item.id)">前往課程一覽</button>
-                                    </div>
+                                      </a>
+                                      <button type="button" class="btn btn-outline-dark d-block d-md-none rounded-0 w-100" @click="getSelfProduct(item.id)">前往課程一覽</button>
                                     </div>
                                 </div>
                             </div>
@@ -299,6 +305,9 @@ export default {
   overflow:hidden;
   position:relative;
 }
+.card_imag_image{
+  height:200px;
+}
 .card img{
   transform:scale(1);
   transition:all .5s;
@@ -324,6 +333,15 @@ export default {
 }
 .medium-text{
   font-size: 18px;
+}
+.lecture_card:hover{
+  box-shadow: 12px 12px 7px rgba(0, 0, 0, 0.7);
+  transition:all .5s;
+}
+@media(max-width:760px){
+  .card_imag_image{
+    height:100%;
+  }
 }
 @media(max-width:680px){
   .advance_image{

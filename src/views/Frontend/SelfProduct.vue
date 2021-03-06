@@ -10,97 +10,102 @@
                     <router-link to="/" class="text-muted">首頁</router-link>
                 </li>
                 <li class="breadcrumb-item">
-                    <router-link to="/lecture/Lecture_Product" class="text-muted">課程</router-link>
+                    <router-link to="/lecture/LectureProduct" class="text-muted">課程</router-link>
                 </li>
                 <li class="breadcrumb-item active text-dark" aria-current="page">{{ lecture.title }}</li>
             </ol>
         </nav>
-        <div class="container mb-4">
+        <div class="container mb-5">
+          <div class="row">
+            <div class="col-lg-6">
+              <img :src="lecture.imageUrl" class="img-fluid" :alt="`${lecture.title}課程圖片`">
+            </div>
+            <div class="col-lg-6">
+              <h2>{{ lecture.title }}</h2>
+              <h5 class="font-weight-bold">本課程好處</h5>
+              <div v-html="lecture.content"></div>
+              <h5 class="font-weight-bold mt-2">本課程安排</h5>
+              <div>{{ lecture.description }}</div>
+              <div class="d-flex justify-content-between align-items-end mb-3 mt-4">
+                <div class="card-text text-muted medium-text">原本售價 <del>NT{{ lecture.origin_price| currency }}</del></div>
+                <strong class="text-muted ml-auto h3 mb-0 text-right">現在售價 NT<span class="h3 text-danger">{{ lecture.price| currency }}</span></strong>
+              </div>
+              <h5>數量</h5>
+              <div class="input-group mb-3">
+                  <div class="input-group-append">
+                    <button type="button" class="btn btn-grey border border-dark rounded-0" @click="CalQty(-1)">-</button>
+                  </div>
+                  <input type="text" class="form-control text-center qty" placeholder="0" aria-label="1" aria-describedby="basic-addon1" v-model="qty">
+                  <div class="input-group-prepend">
+                    <button type="button" class="btn btn-grey border border-dark rounded-0" @click="CalQty(1)">+</button>
+                  </div>
+              </div>
+              <button type="button" class="btn btn-warning btn-lg w-100 rounded-0" @click="addToCart(lecture)"><font-awesome-icon :icon="['fas', 'cart-arrow-down']" class="mr-2" />加入購物車</button>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid bg-light py-5 my-5">
+          <div class="container">
             <div class="row">
-                <div class="col-lg-6">
-                    <img :src="lecture.imageUrl" class="img-fluid" :alt="`${lecture.title}課程圖片`">
-                </div>
-                <div class="col-lg-6">
-                    <h2>{{ lecture.title }}</h2>
-                    <h5 class="font-weight-bold">本課程好處</h5>
-                    <div v-html="lecture.content"></div>
-                    <h5 class="font-weight-bold mt-2">本課程安排</h5>
-                    <div>{{ lecture.description }}</div>
-                    <div class="d-flex justify-content-between align-items-end mb-3 mt-4">
-                      <div class="card-text text-muted medium-text">原本售價 <del>NT{{ lecture.origin_price| currency }}</del></div>
-                      <strong class="text-muted ml-auto h3 mb-0 text-right">現在售價 NT<span class="h3 text-danger">{{ lecture.price| currency }}</span></strong>
+              <div class="col-12">
+                <h3 class="text-center">場地器材品質保證</h3>
+                  <div class="w-100">
+                    <p class="text-muted medium-text text-center">您在本健身房運動，可以享用到最乾淨與不被打擾的良好運動空間</p>
+                    <div class="d-flex justify-content-center">
+                      <div class="px-auto border border-light border-right-0" style="writing-mode:vertical-rl; letter-spacing:1rem;">
+                        <p class="pt-1 mt-3 medium-text">注意事項</p>
+                      </div>
+                      <ul class="list-group rounded-0 px-2">
+                        <li class="list-group-item border-0 appendix_list p-0 mt-3 pl-3 text-muted bg-light">本公司的器材的槓鈴都是使用ABCD公司出產的專業槓鈴，機械器材的部分都是使用XDOP公司所出產的全新器材</li>
+                        <li class="list-group-item border-0 appendix_list p-0 mt-3 pl-3 text-muted bg-light">健身房內的器材都會定期在2小時左右，有專人去做清潔，讓您不會有會有器材不夠乾淨而不敢使用的疑慮</li>
+                        <li class="list-group-item border-0 appendix_list p-0 mt-3 pl-3 text-muted bg-light">健身房內都有提供乾淨的廁所與淋浴間，讓您在訓練完之後，都有個舒適的盥洗空間，讓您香香的回家</li>
+                        <li class="list-group-item border-0 appendix_list p-0 mt-3 pl-3 text-muted bg-light">店內的飲水機都有在做定期的清理與更換濾心，讓您不用擔心飲用水是否有不夠乾淨的疑慮</li>
+                      </ul>
                     </div>
-                    <h5>數量</h5>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <button type="button" class="btn btn-grey border border-dark rounded-0" @click="CalQty(1)">+</button>
-                        </div>
-                        <input type="text" class="form-control text-center qty" placeholder="0" aria-label="1" aria-describedby="basic-addon1" v-model="qty">
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-grey border border-dark rounded-0" @click="CalQty(-1)">-</button>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-warning btn-lg w-100 rounded-0" @click="addToCart(lecture)"><font-awesome-icon :icon="['fas', 'cart-arrow-down']" class="mr-2" />加入購物車</button>
-                </div>
+                  </div>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="container-fluid bg-light py-5">
-            <div class="container">
-                <div class="row">
-                <div class="col-md-6">
-                    <h3>運動的好處多多</h3>
-                    <h5>很多人都希望單靠節食的方式來維持自己的身材。但其實，利用運動有效的提高自身的TDEE，飯而能讓你吃的更多，瘦得更健康。以下是運動的幾點好處:</h5>
-                    <ul class="list-group">
-                        <li class="list-group-item border-0 bg-transparent px-0 h5">可以有效的強化你的肌肉</li>
-                        <li class="list-group-item border-0 bg-transparent px-0 h5">減緩老年癡呆</li>
-                        <li class="list-group-item border-0 bg-transparent px-0 h5">提升記憶力</li>
-                        <li class="list-group-item border-0 bg-transparent px-0 h5">減輕壓力</li>
-                    </ul>
-                </div>
-                <div class="col-md-6 h-100">
-                    <img src="https://upload.cc/i1/2021/02/07/jnkI6B.jpg" class="img-fluid advance_image" alt="Berserker Fitness運動好處">
-                </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 h-100">
-                        <img src="https://upload.cc/i1/2021/02/07/Oj078N.jpg" class="img-fluid advance_image" alt="Berserker Fitness師資優異">
+        <div class="container-fluid py-5 my-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h3 class="text-center">意外保證</h3>
+                  <div class="w-100">
+                    <p class="text-muted medium-text text-center">若您在本健身房使用器材 或是 在上教練課時，身體不堪負荷而受傷的話，本公司會給您下列保證</p>
+                    <div class="d-flex justify-content-center">
+                      <div class="px-auto" style="writing-mode:vertical-rl; letter-spacing:1rem;">
+                        <p class="pt-1 mt-3 medium-text">注意事項</p>
+                      </div>
+                      <ul class="list-group rounded-0 px-2">
+                        <li class="list-group-item border-0 appendix_list p-0 mt-3 pl-3 text-muted">先請您停下手邊的運動，並退至安全區，並立即告知巡場教練您所受傷的地方，我們會第一時間給您做處理</li>
+                        <li class="list-group-item border-0 appendix_list p-0 mt-3 pl-3 text-muted">本公司都有對每個器材保專業的責任險，在釐清完責任歸屬後，該賠償的顧客的部分，絕對不會讓您委屈</li>
+                      </ul>
                     </div>
-                    <div class="col-md-6">
-                        <h3>最專業的師資</h3>
-                        <h5>在Berserker Fitness中，我們擁有最專業的師資，來輔導您，讓你可以學到最正確的健身知識，以下是您一定要來Berserker的原因:</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item border-0 bg-transparent px-0 h5">最正確的運動姿勢</li>
-                            <li class="list-group-item border-0 bg-transparent px-0 h5">你的進步你看的到</li>
-                            <li class="list-group-item border-0 bg-transparent px-0 h5">幫助您飲食控制</li>
-                            <li class="list-group-item border-0 bg-transparent px-0 h5">和同儕一起進步</li>
-                        </ul>
-                    </div>
-
-                </div>
+                  </div>
+              </div>
             </div>
+          </div>
         </div>
-
-        <div class="container">
+        <div class="container mb-5">
             <div class="row">
                 <div class="col-12">
                     <h3>關聯的課程</h3>
-                    <carousel :autoplay="true" :loop="true" :paginationEnabled="false" :perPageCustom="[[320, 1], [560, 2], [1024, 4]]">
+                    <carousel :autoplay="true" :loop="true" :paginationEnabled="false" :perPageCustom="[[320, 1], [560, 2], [1024, 3]]">
                         <slide v-for="(item, index) in sameCategoryFilter" :key="index">
-                        <div class="card h-100 border-0 mr-2">
-                            <div class="card_image h-50">
-                                <img class="card-img-top" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
-                            </div>
-
-                            <div class="card-body">
+                        <div class="card h-100 border-0 mr-3 pb-2">
+                          <div class="card_image">
+                              <img class="card-img-top rounded-0 card_imag_image" :src="item.imageUrl" :alt="`${item.title}課程圖片`">
+                          </div>
+                          <div class="card-body p-0">
                             <h5 class="card-title">{{ item.title }}</h5>
-                            <p class="card-text">{{ item.description }}</p>
-                            <button type="button" class="btn btn-outline-dark rounded-0 btn-md-lg rounded-0 w-100" @click="getProduct(item.id)">前去課程介紹</button>
+                            <div class="d-flex justify-content-between align-items-end">
+                              <del class="text-muted">原價{{ item.origin_price }}元</del>
+                              <strong class="h5 mb-0">現在只要<span class="text-danger">{{ item.price }}</span>元</strong>
                             </div>
+                            <button type="button" class="btn btn-outline-dark rounded-0 btn-md-lg rounded-0 w-100" @click="getProduct(item.id)">前去課程介紹</button>
+                          </div>
                         </div>
                         </slide>
                     </carousel>
@@ -124,7 +129,7 @@ export default {
       lecture: {},
       carts: [],
       carData: JSON.parse(localStorage.getItem('carData')) || [],
-      qty: 0,
+      qty: 1,
       isLoading: false,
       product_length: 0
     }
@@ -268,9 +273,6 @@ export default {
 </script>
 
 <style scoped>
-.advance_image{
-  border-radius:50px;
-}
 .card{
   border:0px;
   cursor:pointer;
@@ -285,9 +287,24 @@ export default {
 .medium-text{
   font-size:16px;
 }
-@media(max-width:680px){
-  .advance_image{
-    border-radius:0px;
+.appendix_warning{
+  transform:rotate(-90deg);
+}
+.appendix_list:before{
+  content:"\203B";
+  position: absolute;
+  color: #999;
+  left: 0;
+  top: 4px;
+  line-height: 1;
+  font-size: 11px;
+}
+.card_imag_image{
+  height:200px;
+}
+@media(max-width:567px){
+  .card_imag_image{
+    height:90%;
   }
 }
 </style>

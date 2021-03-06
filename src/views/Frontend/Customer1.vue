@@ -1,44 +1,34 @@
 <template>
   <div>
     <div class="vld-parent">
-        <loading :active.sync="isLoading"></loading>
+      <loading :active.sync="isLoading"></loading>
     </div>
     <Navbar :product_num="product_length" v-on:increment="CounterCoupute"></Navbar>
     <Alert/>
-    <div class="container mb-5">
-        <div class="justify-content-center align-items-center d-none d-md-flex mt-4 mb-4">
-            <div>
-                <div class="rounded-circle d-flex justify-content-center align-items-center h3 alert alert-primary mb-1" style="width:100px;height:100px;">Step1</div>
-                <div class="text-center font-weight-bold">購物車</div>
-            </div>
-            <div style="width:200px;height:1px;border:0.01px solid black;"></div>
-            <div>
-                <div class="rounded-circle d-flex justify-content-center align-items-center h3 alert alert-light mb-1 border-dark" style="width:100px;height:100px;">Step2</div>
-                <div class="text-center font-weight-bold">填寫資料</div>
-            </div>
-            <div style="width:200px;height:1px;border:0.01px solid black;"></div>
-            <div>
-                <div class="rounded-circle d-flex justify-content-center align-items-center h3 alert alert-light mb-1 border-dark" style="width:100px;height:100px;">Step3</div>
-                <div class="text-center font-weight-bold">訂單確認</div>
-            </div>
+    <div class="container my-5">
+        <div class="d-none d-lg-flex mb-5">
+          <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
+            <p class="m-0 text-dark font-weight-bold">購物車內容</p>
+          </div>
+          <div class="h3 alert alert-primary non_progress_bar border border-dark border-right-0 border-left-0 mx-auto text-center d-flex justify-content-center align-items-center rounded-0">
+            <p class="m-0 text-muted">填寫資料</p>
+          </div>
+          <div class="h3 alert alert-primary non_progress_bar mx-auto border border-dark border-right-0 border-left-0 d-flex justify-content-center align-items-center">
+            <p class="m-0 text-muted">訂單確認</p>
+          </div>
         </div>
-        <div class="d-flex d-md-none justify-content-center mt-4">
-            <div>
-                <div class="rounded-circle d-flex justify-content-center align-items-center h3 alert alert-primary mb-1" style="width:100px;height:100px;">Step1</div>
-                <div class="text-center font-weight-bold">購物車</div>
-            </div>
+        <div class="d-flex d-lg-none h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center justify-content-center align-items-center mb-5">
+          <p class="m-0 text-dark font-weight-bold">購物車內容</p>
         </div>
-
         <div class="row">
           <div class="col-lg-9">
             <h2 class="text-center bg-warning py-2">購物車內容</h2>
             <table class="table mt-4">
                 <thead>
-                    <th class=" border-bottom-0" width="10"></th>
+                    <th class="border-bottom-0" width="10"></th>
                     <th class="d-none d-md-block border-bottom-0" >商品圖片</th>
-                    <th class=" border-bottom-0" >商品名稱</th>
-                    <th width="150" class=" border-bottom-0" >數量</th>
-                    <th width="150" class=" border-bottom-0" >金額</th>
+                    <th class="border-bottom-0 table_product" >商品名稱</th>
+                    <th class="border-bottom-0" >金額</th>
                 </thead>
                 <tbody>
                   <tr v-for="(item, key) in carts" :key="key">
@@ -50,16 +40,27 @@
                     <td class="d-none d-md-block">
                       <img :src="item.product.imageUrl" width="70px" height="70px" :alt="item.product.title商品">
                     </td>
-                      <td class="h5">{{ item.product.title }} <br>
-                        <span class="text-muted h5">{{item.product.price| currency }}</span>
-                      </td>
                       <td class="h5">
-                        <div class="input-group mb-3">
+                        <div class="d-flex justify-content-between">
+                          <span>{{ item.product.title }}</span>
+                          <div class="input-group w-50 d-none d-sm-flex">
+                            <div class="input-group-prepend">
+                              <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, -1)">-</button>
+                            </div>
+                            <input type="text" class="form-control text-center qty" placeholder="0" aria-label="1" aria-describedby="basic-addon1" v-model="item.qty">
+                            <div class="input-group-append">
+                              <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, 1)">+</button>
+                            </div>
+                          </div>
+                        </div>
+                        <span class="text-muted h5">{{item.product.price| currency }}
+                        </span>
+
+                        <div class="input-group d-flex d-sm-none">
                           <div class="input-group-prepend">
                             <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, -1)">-</button>
                           </div>
                           <input type="text" class="form-control text-center qty" placeholder="0" aria-label="1" aria-describedby="basic-addon1" v-model="item.qty">
-
                           <div class="input-group-append">
                             <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, 1)">+</button>
                           </div>
@@ -279,3 +280,70 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.non_progress_bar{
+  width: 200px;
+  height: 50px;
+  background: #fff;
+}
+.non_progress_bar:before{
+  position: absolute;
+  background-color: #fff;
+  left: -25px;
+  top: 0;
+  width:50px;
+  height:49px;
+  content:" ";
+  border-radius:49%;
+  z-index:-1;
+  border:1px solid black;
+}
+.non_progress_bar:after{
+  position: absolute;
+  background-color: #fff;
+  right: -25px;
+  top: 0;
+  width:50px;
+  height:49px;
+  content:" ";
+  border-radius:50%;
+  z-index:-1;
+  border:1px solid black;
+}
+.progress_bar{
+  width: 200px;
+  height: 50px;
+  z-index: 1;
+}
+.progress_bar:before{
+  position: absolute;
+  background-color: yellow;
+  left: -25px;
+  top: 0;
+  width:50px;
+  height:50px;
+  content:" ";
+  border-radius:50%;
+  z-index:-1;
+}
+.progress_bar:after{
+  position: absolute;
+  background-color: yellow;
+  right: -25px;
+  top: 0;
+  width:50px;
+  height:50px;
+  content:" ";
+  border-radius:50%;
+  z-index:-1;
+}
+.table_product{
+  width:300px;
+}
+@media(max-width:568px){
+  .table_product{
+    width:200px;
+  }
+}
+</style>

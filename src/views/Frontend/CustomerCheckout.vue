@@ -5,7 +5,21 @@
     </div>
     <Navbar></Navbar>
     <Alert/>
-    <div class="container my-3 flex-grow-1">
+    <div class="container my-5 flex-grow-1">
+        <div class="d-none d-lg-flex mb-5">
+          <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
+            <p class="m-0 text-dark font-weight-bold">購物車內容</p>
+          </div>
+          <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
+            <p class="m-0 text-dark font-weight-bold">填寫資料</p>
+          </div>
+          <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
+            <p class="m-0 text-dark font-weight-bold">資料確認</p>
+          </div>
+        </div>
+        <div class="d-flex d-lg-none h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center justify-content-center align-items-center mb-5">
+          <p class="m-0 text-dark font-weight-bold">資料確認</p>
+        </div>
         <div class="row">
           <div class="col-md-6">
             <div class="CheckoutPicture bg-cover"></div>
@@ -153,6 +167,63 @@ export default {
   bottom: 0;
   left: 0;
   z-index: -1;
+}
+/*---*/
+.non_progress_bar{
+  width: 200px;
+  height: 50px;
+  background: #fff;
+}
+.non_progress_bar:before{
+  position: absolute;
+  background-color: #fff;
+  left: -25px;
+  top: 0;
+  width:50px;
+  height:49px;
+  content:" ";
+  border-radius:49%;
+  z-index:-1;
+  border:1px solid black;
+}
+.non_progress_bar:after{
+  position: absolute;
+  background-color: #fff;
+  right: -25px;
+  top: 0;
+  width:50px;
+  height:49px;
+  content:" ";
+  border-radius:50%;
+  z-index:-1;
+  border:1px solid black;
+}
+.progress_bar{
+  width: 200px;
+  height: 50px;
+  z-index: 1;
+}
+.progress_bar:before{
+  position: absolute;
+  background-color: yellow;
+  left: -25px;
+  top: 0;
+  width:50px;
+  height:50px;
+  content:" ";
+  border-radius:50%;
+  z-index:-1;
+}
+.progress_bar:after{
+  position: absolute;
+  background-color: yellow;
+  right: -25px;
+  top: 0;
+  width:50px;
+  height:50px;
+  content:" ";
+  border-radius:50%;
+  z-index:-1;
 }
 @media(max-width:768px) {
   .order-title {

@@ -11,12 +11,16 @@
         <div class="col-12 text-center">
           <small class="text-muted">教練推薦課程</small>
           <p class="h2 mb-4 font-weight-normal">Recommended</p>
-          <carousel :autoplay="true" :loop="true" :paginationEnabled="false" :perPageCustom="[[320, 1], [560, 2], [1024, 4]]">
+          <carousel :autoplay="true" :loop="true" :paginationEnabled="false" :perPageCustom="[[320, 1], [560, 1], [768, 2], [1024, 3]]">
             <slide v-for="(item, index) in aerobicArray" :key="index">
               <div class="card h-100 border-0 mr-2">
                 <img class="card-img-top h-50" :src="item.imageUrl" :alt="`${item.title}課程`">
-                <div class="card-body">
-                  <h5 class="card-title">{{ item.title }}</h5>
+                <div class="card-body pt-1">
+                  <h5 class="card-title font-weight-bold">{{ item.title }}</h5>
+                  <div class="d-flex justify-content-between align-items-end">
+                    <small class="card-text text-muted small-text" v-if="item.origin_price!==item.price">原本售價<del>{{ item.origin_price| currency }}</del></small>
+                    <strong class="card-text text-muted ml-auto">現在售價 <span class="h4 text-danger">{{ item.price | currency }}</span></strong>
+                  </div>
                   <button class="btn btn-outline-dark rounded-0 btn-md-lg rounded-0 w-100" type="button" @click="getProduct(item.id)">前去課程介紹</button>
                 </div>
               </div>
@@ -100,7 +104,7 @@
                 <img class="card-img-top mx-auto" src="https://randomuser.me/api/portraits/women/10.jpg" alt="`客戶評價頭像`" style="width:100px; height:100px; border-radius:50%;">
                 <div class="card-body">
                   <p class="card-text mb-0 text-center font-weight-bold">來自深淵的女子</p>
-                  <small class="card-text text-muted">Berserker Fitness真的解救了我多年來苦惱的肉肉，看著肉肉越來越少，褲子越來越鬆，我的身心靈彷彿就得到了淨化，
+                  <small class="card-text text-muted medium-text">Berserker Fitness真的解救了我多年來苦惱的肉肉，看著肉肉越來越少，褲子越來越鬆，我的身心靈彷彿就得到了淨化，
                   強烈推薦你/妳來Berserker體驗練到腿軟的滋味。</small>
                 </div>
               </div>
@@ -110,7 +114,7 @@
                 <img class="card-img-top mx-auto" src="https://randomuser.me/api/portraits/men/3.jpg" alt="客戶評價頭像" style="width:100px; height:100px; border-radius:50%;">
                 <div class="card-body">
                   <p class="card-text mb-0 text-center font-weight-bold">基隆的嗨先生</p>
-                  <small class="card-text text-muted">Berserker Fitness無話可說無可救藥的<strong class="h2">就是讚!!!</strong></small>
+                  <small class="card-text text-muted medium-text">Berserker Fitness無話可說無可救藥的<strong class="h4">就是讚!!!</strong></small>
                 </div>
               </div>
             </div>
@@ -119,7 +123,7 @@
                 <img class="card-img-top mx-auto" src="https://randomuser.me/api/portraits/men/90.jpg" alt="客戶評價頭像" style="width:100px; height:100px; border-radius:50%;">
                 <div class="card-body">
                   <p class="card-text mb-0 text-center font-weight-bold">來自日本的小林先生</p>
-                  <small class="card-text text-muted"><strong class="h2">紅豆泥!!!</strong>你/妳還沒有加入Berserker Fitness的健身房，妳是不是阿搭麻
+                  <small class="card-text text-muted medium-text"><strong class="h4">紅豆泥!!!</strong>你/妳還沒有加入Berserker Fitness的健身房，妳是不是阿搭麻
                   控估力</small>
                 </div>
               </div>
@@ -386,6 +390,9 @@ export default {
 }
 .small-text{
   font-size: 14px;
+}
+.medium-text{
+  font-size: 16px;
 }
 .goTolecture_btn{
   width: 60%;
