@@ -10,7 +10,7 @@ import 'bootstrap'
 import './bus.js'
 import currencyFilter from './filters/currency'
 
-import { ValidationObserver, ValidationProvider, extend, localize, configure } from 'vee-validate'
+import { extend, localize, configure } from 'vee-validate'
 import TW from 'vee-validate/dist/locale/zh_TW.json'
 import * as rules from 'vee-validate/dist/rules'
 
@@ -57,12 +57,7 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
 localize('zh_TW', TW)
-
-Vue.component('ValidationObserver', ValidationObserver)
-Vue.component('ValidationProvider', ValidationProvider)
-
 configure({
   classes: {
     valid: 'is-valid',

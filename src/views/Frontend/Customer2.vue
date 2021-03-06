@@ -25,51 +25,51 @@
             <h2 class="bg-warning py-2 text-center">收件人資料</h2>
             <h5>星號(*)部分必填</h5>
             <div>
-              <validation-observer v-slot="{ invalid, handleSubmit }">
+              <ValidationObserver v-slot="{ invalid, handleSubmit }">
                 <form @submit.prevent="handleSubmit(submitForm)">
-                  <validation-provider rules="required" v-slot="{ errors, classes }">
+                  <ValidationProvider rules="required" v-slot="{ errors, classes }">
                     <div class="form-group">
                       <label for="username">收件人姓名<span class="text-danger ml-1 font-weight-bold">*</span></label>
                       <input id="username" type="text" name="姓名"
                         class="form-control rounded-0" v-model="form.user.name" :class="classes" placeholder="輸入姓名" >
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
-                  </validation-provider>
-                  <validation-provider rules="required|email" v-slot="{ errors, classes }">
+                  </ValidationProvider>
+                  <ValidationProvider rules="required|email" v-slot="{ errors, classes }">
                     <div class="form-group">
                       <label for="email">Email<span class="text-danger ml-1 font-weight-bold">*</span></label>
                       <input id="email" type="email" name="email"
                         class="form-control rounded-0" v-model="form.user.email" :class="classes" placeholder="請輸入信箱">
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
-                  </validation-provider>
-                  <validation-provider rules="required" v-slot="{ errors, classes }">
+                  </ValidationProvider>
+                  <ValidationProvider rules="required" v-slot="{ errors, classes }">
                     <div class="form-group">
                       <label for="useraddress">收件人地址<span class="text-danger ml-1 font-weight-bold">*</span></label>
                       <input id="useraddress" type="text" name="地址"
                         class="form-control rounded-0" v-model="form.user.address" :class="classes" placeholder="請輸入地址" >
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
-                  </validation-provider>
-                  <validation-provider rules="required" v-slot="{ errors, classes }">
+                  </ValidationProvider>
+                  <ValidationProvider rules="required" v-slot="{ errors, classes }">
                     <div class="form-group">
                       <label for="usertel">收件人電話<span class="text-danger ml-1 font-weight-bold">*</span></label>
                       <input id="usertel" type="tel" name="電話"
                         class="form-control rounded-0" v-model="form.user.tel" :class="classes" placeholder="請輸入電話" >
                       <span class="invalid-feedback">{{ errors[0] }}</span>
                     </div>
-                  </validation-provider>
-                  <validation-provider>
+                  </ValidationProvider>
+                  <ValidationProvider>
                     <div class="form-group">
                       <label for="comment">留言</label>
                       <textarea name="" id="comment" class="form-control rounded-0" cols="30" rows="10" v-model="form.message"></textarea>
                     </div>
-                  </validation-provider>
+                  </ValidationProvider>
                   <div class="text-right">
                     <button class="btn btn-danger rounded-0" :disabled="invalid">送出訂單</button>
                   </div>
                 </form>
-              </validation-observer>
+              </ValidationObserver>
             </div>
           </div>
           <div class="col-lg-4">
@@ -195,6 +195,7 @@ import $ from 'jquery'
 import Alert from '../AlertMessage'
 import Navbar from '../Navbar'
 import Footer from '../Footer'
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
 export default {
   name: 'Customer1',
   data () {
@@ -292,7 +293,9 @@ export default {
   components: {
     Alert,
     Navbar,
-    Footer
+    Footer,
+    ValidationProvider,
+    ValidationObserver
   }
 }
 </script>
