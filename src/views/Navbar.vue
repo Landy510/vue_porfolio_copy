@@ -42,7 +42,7 @@
               <a class="nav-link likeButton" :class="{'text-danger':likeList.length!==0}" href="#" title="我的最愛" data-toggle="dropdown">
                 <font-awesome-icon :icon="['far','heart']" size="lg"></font-awesome-icon>
               </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuReference" style="min-width:400px;">
+              <div class="dropdown-menu dropdown-menu-right like-modal" aria-labelledby="dropdownMenuReference">
                 <div class="px-4">
                   <table class="table">
                     <thead>
@@ -387,9 +387,15 @@ export default {
 .modal.show.modal-right .modal-dialog {
   transform: none;
 }
+.like-modal{
+  min-width: 400px;
+}
 @media(max-width:680px){
   .Brand_logo{
     display:none;
+  }
+  .like-modal{
+    min-width:100%;
   }
 }
 @media(max-width:380px){
