@@ -1,154 +1,152 @@
 <template>
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-warning bg-warning">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">
-                    <font-awesome-icon :icon="['fas','bars']" size="lg"></font-awesome-icon>
-                </span>
-            </button>
-            <router-link to="/" class="mx-auto navbar-brand py-0 text-dark font-weight-bold d-flex bg-transparent shadow-none">
-                    <h1 class="h5 m-0">
-                        <img src="../assets/img/protectionshield.svg" width="30" height="30" class="d-inline-block align-top" alt="Berserker Fitness Logo">
-                        <span class="ml-1 my-auto Brand_logo">Berserker Fitness</span>
-                    </h1>
-            </router-link>
-            <div class="d-block d-lg-none" style="position:relative">
-                <button type="button" class="btn btn-transparent text-dark d-block d-lg-none" data-toggle="modal" data-target="#exampleModalLong" @click="getList">
-                    <font-awesome-icon :icon="['fas', 'cart-arrow-down']" />
-                </button>
-                <span class="badge badge-danger rounded-circle" style="position:absolute;top:0;left:25px" v-if="product_num!==0">{{ product_num }}</span>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <router-link to="/" class="nav-link text-dark">首頁</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/lecture/LectureProduct" class="nav-link text-dark">課程</router-link>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link location_search" href="#" title="了解我們">
-                            <font-awesome-icon :icon="['fas', 'map-marker-alt']" />
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link to="/login" class="nav-link login_status" title="管理者登入">
-                            <font-awesome-icon :icon="['fas', 'users-cog']" />
-                        </router-link>
-                    </li>
-                    <li class="nav-item active">
-                      <a class="nav-link likeButton" :class="{'text-danger':likeList.length!==0}" href="#" title="我的最愛" data-toggle="dropdown">
-                        <font-awesome-icon :icon="['far','heart']" size="lg"></font-awesome-icon>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuReference" style="min-width:400px;">
-                        <div class="px-4">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th class="border-0 px-0">收藏清單</th>
-                              </tr>
-                            </thead>
-                            <tbody v-if="likeList.length!==0">
-                              <tr v-for="(item, index) in likeList" :key="index" >
-                                <td width="80">
-                                  <a href="#" @click="removeLike(item)">
-                                    <i class="fas fa-trash-alt text-danger rounded-0"></i>
-                                  </a>
-                                </td>
-                                <td width="120">{{ item.title }}</td>
-                                <td width="80" class="text-right">
-                                  <a class="text-dark" href="#" @click.prevent="addToCart(item)">
-                                    <font-awesome-icon :icon="['fas', 'cart-arrow-down']"/>
-                                  </a>
-                                </td>
-                              </tr>
-                            </tbody>
-                            <tbody v-else class="text-danger">
-                              <p>我的最愛清單沒有商品喔~</p>
-                              <router-link to="/">
-                                <button class="btn btn-warning" @click="closeModal">回去逛逛~</button>
-                              </router-link>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="nav-item active">
-                        <router-link to="/">
-                            <a class="nav-link text-dark" href="#" @click="signOut">登出</a>
-                        </router-link>
-                    </li>
-
-                    <li class="nav-item d-none d-lg-block" style="position:relative">
-                        <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#exampleModalLong" @click="getList">
-                            <font-awesome-icon :icon="['fas', 'cart-arrow-down']"/>
-                        </button>
-                        <span class="badge badge-danger rounded-circle" style="position:absolute;top:0;left:25px" v-if="product_num!==0">{{ product_num }}</span>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <!---->
-        <div class="lecture_hide p-4 bg-light">
-            <div class="d-flex">
-                    <div class="card rounded-0 border-0 mr-3 bg-light" style="width: 18rem;">
-                        <img class="card-img-top rounded-0" src="https://upload.cc/i1/2021/02/16/XaFwDo.jpg" alt="了解Berserker Fitness圖片">
-                        <div class="card-body p-0 text-center mt-3">
-                            <font-awesome-icon :icon="['fas', 'caret-right']" />
-                            <router-link to="/Company/CompanyDetail" class="location_search_btn ml-2">了解Berserker Fitness</router-link>
-                        </div>
-                    </div>
-                    <div class="card rounded-0 border-0 bg-light" style="width: 18rem;">
-                        <img class="card-img-top location_part rounded-0" src="https://upload.cc/i1/2021/02/16/rcGXwH.jpg" alt="了解Berserker Fitness據點查詢圖片">
-                        <div class="card-body p-0 text-center mt-3">
-                            <font-awesome-icon :icon="['fas', 'caret-right']" />
-                            <router-link to="/Company/LocationInfo" class="location_search_btn ml-2">Berserker Fitness據點查詢</router-link>
-                        </div>
-                    </div>
-            </div>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-warning bg-warning">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon">
+            <font-awesome-icon :icon="['fas','bars']" size="lg"></font-awesome-icon>
+          </span>
+        </button>
+        <router-link to="/" class="mx-auto navbar-brand py-0 text-dark font-weight-bold d-flex bg-transparent shadow-none">
+          <h1 class="h5 m-0">
+            <img src="../assets/img/protectionshield.svg" width="30" height="30" class="d-inline-block align-top" alt="Berserker Fitness Logo">
+            <span class="ml-1 my-auto Brand_logo">Berserker Fitness</span>
+          </h1>
+        </router-link>
+        <div class="d-block d-lg-none" style="position:relative">
+          <button type="button" class="btn btn-transparent text-dark d-block d-lg-none" data-toggle="modal" data-target="#exampleModalLong" @click="getList">
+            <font-awesome-icon :icon="['fas', 'cart-arrow-down']" />
+          </button>
+          <span class="badge badge-danger rounded-circle" style="position:absolute;top:0;left:25px" v-if="product_num!==0">{{ product_num }}</span>
         </div>
-        <!-- Modal -->
-        <div class="modal fade modal-right pr-0" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-          <div class="modal-dialog mr-md-0 mt-0" role="document" >
-            <div class="modal-content">
-              <div class="modal-header mr-0 bg-warning sticky-top">
-                <h4 class="modal-title font-weight-bold mx-auto" id="exampleModalLongTitle">購物車</h4>
-                <button type="button" class="close p-0 m-0" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body p-0" v-if="cart.length!==0">
-                <div class="card px-4 border-0" v-for="(item,index) in cart" :key="index">
-                  <img class="card-img-top rounded-0" :src="item.product.imageUrl" :alt="`${item.product.title}課程圖片`">
-                  <div class="card-body">
-                    <h3 class="card-title">{{ item.product.title }}</h3>
-                    <h3 class="card-text">{{ item.product.price| currency }} 元</h3>
-                    <div class="d-flex justify-content-between align-items-end">
-                      <span class="card-text h5">{{ item.qty }} /{{ item.product.unit }}</span>
-                      <button type="button" class="btn btn-outline-danger rounded-0" @click="delProduct(item.id)"><font-awesome-icon :icon="['fas', 'trash-alt']"/></button>
-                    </div>
-                  </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <router-link to="/" class="nav-link text-dark">首頁</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/lecture/LectureProduct" class="nav-link text-dark">課程</router-link>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link location_search" href="#" title="了解我們">
+                <font-awesome-icon :icon="['fas', 'map-marker-alt']" />
+              </a>
+            </li>
+            <li class="nav-item active">
+              <router-link to="/login" class="nav-link login_status" title="管理者登入">
+                <font-awesome-icon :icon="['fas', 'users-cog']" />
+              </router-link>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link likeButton" :class="{'text-danger':likeList.length!==0}" href="#" title="我的最愛" data-toggle="dropdown">
+                <font-awesome-icon :icon="['far','heart']" size="lg"></font-awesome-icon>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuReference" style="min-width:400px;">
+                <div class="px-4">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="border-0 px-0">收藏清單</th>
+                      </tr>
+                    </thead>
+                    <tbody v-if="likeList.length!==0">
+                      <tr v-for="(item, index) in likeList" :key="index" >
+                        <td width="80">
+                          <a href="#" @click="removeLike(item)">
+                            <i class="fas fa-trash-alt text-danger rounded-0"></i>
+                          </a>
+                        </td>
+                        <td width="120">{{ item.title }}</td>
+                        <td width="80" class="text-right">
+                          <a class="text-dark" href="#" @click.prevent="addToCart(item)">
+                            <font-awesome-icon :icon="['fas', 'cart-arrow-down']"/>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tbody v-else class="text-danger">
+                      <p>我的最愛清單沒有商品喔~</p>
+                      <router-link to="/">
+                        <button class="btn btn-warning" @click="closeModal">回去逛逛~</button>
+                      </router-link>
+                    </tbody>
+                  </table>
                 </div>
-                <div class="bg-light p-4 h3 d-sm-flex justify-content-between mb-0" style="position:sticky; bottom:0;">總金額 {{ total_price| currency }}
-                  <router-link to="/customerOrder/customer1">
-                    <button type="button" class="btn btn-warning px-5 w-100 rounded-0" @click="closeModal" :disabled="Status.isUploading">
-                    <font-awesome-icon :icon="['fas', 'spinner']" spin v-if="Status.isUploading"/>
-                    結帳去</button>
-                  </router-link>
-                </div>
               </div>
-              <div class="modal-body" v-else>
-                <p class="text-danger mb-2 h5">購物車裡沒有商品喔~</p>
-                <router-link to="/">
-                  <button class="btn btn-warning" @click="closeModal">回去逛逛~</button>
-                </router-link>
-              </div>
-            </div>
+            </li>
+            <li class="nav-item active">
+              <router-link to="/">
+                <a class="nav-link text-dark" href="#" @click="signOut">登出</a>
+              </router-link>
+            </li>
+            <li class="nav-item d-none d-lg-block" style="position:relative">
+              <button type="button" class="btn btn-transparent" data-toggle="modal" data-target="#exampleModalLong" @click="getList">
+                <font-awesome-icon :icon="['fas', 'cart-arrow-down']"/>
+              </button>
+              <span class="badge badge-danger rounded-circle" style="position:absolute;top:0;left:25px" v-if="product_num!==0">{{ product_num }}</span>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    <div class="lecture_hide p-4 bg-light">
+      <div class="d-flex">
+        <div class="card rounded-0 border-0 mr-3 bg-light" style="width: 18rem;">
+          <img class="card-img-top rounded-0" src="https://upload.cc/i1/2021/02/16/XaFwDo.jpg" alt="了解Berserker Fitness圖片">
+          <div class="card-body p-0 text-center mt-3">
+            <font-awesome-icon :icon="['fas', 'caret-right']" />
+            <router-link to="/Company/CompanyDetail" class="location_search_btn ml-2">了解Berserker Fitness</router-link>
           </div>
         </div>
+        <div class="card rounded-0 border-0 bg-light" style="width: 18rem;">
+          <img class="card-img-top location_part rounded-0" src="https://upload.cc/i1/2021/02/16/rcGXwH.jpg" alt="了解Berserker Fitness據點查詢圖片">
+          <div class="card-body p-0 text-center mt-3">
+            <font-awesome-icon :icon="['fas', 'caret-right']" />
+            <router-link to="/Company/LocationInfo" class="location_search_btn ml-2">Berserker Fitness據點查詢</router-link>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade modal-right pr-0" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog mr-md-0 mt-0" role="document" >
+        <div class="modal-content">
+          <div class="modal-header mr-0 bg-warning sticky-top">
+            <h4 class="modal-title font-weight-bold mx-auto" id="exampleModalLongTitle">購物車</h4>
+            <button type="button" class="close p-0 m-0" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body p-0" v-if="cart.length!==0">
+            <div class="card px-4 border-0" v-for="(item,index) in cart" :key="index">
+              <img class="card-img-top rounded-0" :src="item.product.imageUrl" :alt="`${item.product.title}課程圖片`">
+              <div class="card-body">
+                <h3 class="card-title">{{ item.product.title }}</h3>
+                <h3 class="card-text">{{ item.product.price| currency }} 元</h3>
+                <div class="d-flex justify-content-between align-items-end">
+                  <span class="card-text h5">{{ item.qty }} /{{ item.product.unit }}</span>
+                  <button type="button" class="btn btn-outline-danger rounded-0" @click="delProduct(item.id)"><font-awesome-icon :icon="['fas', 'trash-alt']"/></button>
+                </div>
+              </div>
+            </div>
+            <div class="bg-light p-4 h3 d-sm-flex justify-content-between mb-0" style="position:sticky; bottom:0;">總金額 {{ total_price| currency }}
+              <router-link to="/customerOrder/customer1">
+                <button type="button" class="btn btn-warning px-5 w-100 rounded-0" @click="closeModal" :disabled="Status.isUploading">
+                <font-awesome-icon :icon="['fas', 'spinner']" spin v-if="Status.isUploading"/>
+                結帳去</button>
+              </router-link>
+            </div>
+          </div>
+          <div class="modal-body" v-else>
+            <p class="text-danger mb-2 h5">購物車裡沒有商品喔~</p>
+            <router-link to="/">
+              <button class="btn btn-warning" @click="closeModal">回去逛逛~</button>
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

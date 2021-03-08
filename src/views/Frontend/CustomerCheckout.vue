@@ -6,30 +6,30 @@
     <Navbar></Navbar>
     <Alert/>
     <div class="container my-5 flex-grow-1">
-        <div class="d-none d-lg-flex mb-5">
-          <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
-            <p class="m-0 text-dark font-weight-bold">購物車內容</p>
-          </div>
-          <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
-            <p class="m-0 text-dark font-weight-bold">填寫資料</p>
-          </div>
-          <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
-            <p class="m-0 text-dark font-weight-bold">資料確認</p>
-          </div>
+      <div class="d-none d-lg-flex mb-5">
+        <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
+          <p class="m-0 text-dark font-weight-bold">購物車內容</p>
         </div>
-        <div class="d-flex d-lg-none h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center justify-content-center align-items-center mb-5">
+        <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
+          <p class="m-0 text-dark font-weight-bold">填寫資料</p>
+        </div>
+        <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
           <p class="m-0 text-dark font-weight-bold">資料確認</p>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="CheckoutPicture bg-cover"></div>
-          </div>
-          <div class="col-md-6">
-            <h4 class="order-title mb-3">
-              <font-awesome-icon class="mr-2" :icon="['fas', 'flag']" />訂單成立
-            </h4>
-            <div class="px-5">
-              <table class="table">
+      </div>
+      <div class="d-flex d-lg-none h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center justify-content-center align-items-center mb-5">
+        <p class="m-0 text-dark font-weight-bold">資料確認</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="CheckoutPicture bg-cover"></div>
+        </div>
+        <div class="col-md-6">
+          <h4 class="order-title mb-3">
+            <font-awesome-icon class="mr-2" :icon="['fas', 'flag']" />訂單成立
+          </h4>
+          <div class="px-5">
+            <table class="table">
               <tbody>
                 <tr>
                   <td>訂單ID</td>
@@ -58,14 +58,14 @@
                 </tr>
               </tbody>
             </table>
-            </div>
-            <div class="text-right" v-if="order.is_paid === false">
-              <router-link to="/CustomerOrder/CustomerFinish">
-                <button class="btn btn-warning w-100 rounded-0" type="button" @click="payOrder">確認付款去</button>
-              </router-link>
-            </div>
+          </div>
+          <div class="text-right" v-if="order.is_paid === false">
+            <router-link to="/CustomerOrder/CustomerFinish">
+              <button class="btn btn-warning w-100 rounded-0" type="button" @click="payOrder">確認付款去</button>
+            </router-link>
           </div>
         </div>
+      </div>
     </div>
     <Footer/>
   </div>

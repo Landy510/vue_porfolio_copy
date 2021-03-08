@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <alert/>
-        <router-view/>
-    </div>
+  <div>
+    <alert/>
+    <router-view/>
+  </div>
 </template>
 
 <script>

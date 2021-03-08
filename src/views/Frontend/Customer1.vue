@@ -6,105 +6,104 @@
     <Navbar :product_num="product_length" v-on:increment="CounterCoupute"></Navbar>
     <Alert/>
     <div class="container my-5">
-        <div class="d-none d-lg-flex mb-5">
-          <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
-            <p class="m-0 text-dark font-weight-bold">購物車內容</p>
-          </div>
-          <div class="h3 alert alert-primary non_progress_bar border border-dark border-right-0 border-left-0 mx-auto text-center d-flex justify-content-center align-items-center rounded-0">
-            <p class="m-0 text-muted">填寫資料</p>
-          </div>
-          <div class="h3 alert alert-primary non_progress_bar mx-auto border border-dark border-right-0 border-left-0 d-flex justify-content-center align-items-center">
-            <p class="m-0 text-muted">訂單確認</p>
-          </div>
-        </div>
-        <div class="d-flex d-lg-none h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center justify-content-center align-items-center mb-5">
+      <div class="d-none d-lg-flex mb-5">
+        <div class="h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center d-flex justify-content-center align-items-center">
           <p class="m-0 text-dark font-weight-bold">購物車內容</p>
         </div>
-        <div class="row">
-          <div class="col-lg-9">
-            <h2 class="text-center bg-warning py-2">購物車內容</h2>
-            <table class="table mt-4">
-                <thead>
-                    <th class="border-bottom-0" width="10"></th>
-                    <th class="d-none d-md-block border-bottom-0">商品圖片</th>
-                    <th class="border-bottom-0 table_product" >商品名稱</th>
-                    <th class="border-bottom-0" >金額</th>
-                </thead>
-                <tbody>
-                  <tr v-for="(item, key) in carts" :key="key">
-                    <td>
-                      <button type="button" class="btn btn-outline-danger rounded-0" @click="delProduct(item.id)">
-                        <font-awesome-icon :icon="['fas', 'trash-alt']"/>
-                      </button>
-                    </td>
-                    <td class="d-none d-md-block">
-                      <img :src="item.product.imageUrl" width="70px" height="70px" :alt="item.product.title商品">
-                    </td>
-                      <td class="h5">
-                        <div class="d-flex justify-content-between">
-                          <span class="h5 font-weight-bold mb-0">
-                            {{ item.product.title }}
-                          </span>
-                          <div class="input-group w-40 d-none d-md-flex">
-                            <div class="input-group-prepend">
-                              <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, -1)">-</button>
-                            </div>
-                            <input type="text" class="form-control text-center qty h-100" placeholder="0" aria-label="1" aria-describedby="basic-addon1" v-model="item.qty">
-                            <div class="input-group-append">
-                              <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, 1)">+</button>
-                            </div>
-                          </div>
-                        </div>
-                        <span class="text-muted h5">{{item.product.price| currency }}
-                        </span>
-
-                        <div class="input-group w-100 d-flex d-md-none">
-                          <div class="input-group-prepend">
-                            <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, -1)">-</button>
-                          </div>
-                          <input type="text" class="form-control text-center qty" placeholder="0" aria-label="1" aria-describedby="basic-addon1" v-model="item.qty">
-                          <div class="input-group-append">
-                            <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, 1)">+</button>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="h5 text-right">
-                        {{ item.qty*item.product.price| currency }}
-                    </td>
-                  </tr>
-                </tbody>
-            </table>
-          </div>
-          <div class="col-lg-3">
-            <h2 class="bg-light py-2 text-center">應付金額</h2>
-            <div class="d-flex justify-content-between">
-              <div class="h5">小計</div>
-              <div class="h5">{{ total| currency }}</div>
-            </div>
-            <div class="d-flex justify-content-between border-bottom border-dark mb-2">
-              <div class="h5 mb-1">運費</div>
-              <div class="h5 mb-1">{{ 0| currency }}</div>
-            </div>
-            <div class="d-flex justify-content-between">
-              <div class="h5 text-danger">總計</div>
-              <div class="h5 text-danger">{{ total| currency }}</div>
-            </div>
-            <div class="d-flex justify-content-between" v-if="final_total!==total && hasCoupon">
-              <div class="h5 text-success">折扣價</div>
-              <div class="h5 text-success">{{ final_total| currency }}</div>
-            </div>
-
-            <div class="input-group mb-3 mt-3">
-              <input type="text" class="form-control border border-warning rounded-0" v-model="coupon_code" placeholder="輸入1234折扣碼" aria-label="Recipient's username" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-warning rounded-0" type="button" @click="addCouponCode">套用優惠券</button>
-              </div>
-            </div>
-            <router-link to="customer2">
-              <button type="button" class="btn btn-warning btn-lg w-100 rounded-0">確認訂單</button>
-            </router-link>
-          </div>
+        <div class="h3 alert alert-primary non_progress_bar border border-dark border-right-0 border-left-0 mx-auto text-center d-flex justify-content-center align-items-center rounded-0">
+          <p class="m-0 text-muted">填寫資料</p>
         </div>
+        <div class="h3 alert alert-primary non_progress_bar mx-auto border border-dark border-right-0 border-left-0 d-flex justify-content-center align-items-center">
+          <p class="m-0 text-muted">訂單確認</p>
+        </div>
+      </div>
+      <div class="d-flex d-lg-none h3 alert alert-primary bg-warning progress_bar mx-auto border-0 text-center justify-content-center align-items-center mb-5">
+        <p class="m-0 text-dark font-weight-bold">購物車內容</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-9">
+          <h2 class="text-center bg-warning py-2">購物車內容</h2>
+          <table class="table mt-4">
+            <thead>
+              <th class="border-bottom-0" width="10"></th>
+              <th class="d-none d-md-block border-bottom-0">商品圖片</th>
+              <th class="border-bottom-0 table_product" >商品名稱</th>
+              <th class="border-bottom-0" >金額</th>
+            </thead>
+            <tbody>
+              <tr v-for="(item, key) in carts" :key="key">
+                <td>
+                  <button type="button" class="btn btn-outline-danger rounded-0" @click="delProduct(item.id)">
+                    <font-awesome-icon :icon="['fas', 'trash-alt']"/>
+                  </button>
+                </td>
+                <td class="d-none d-md-block">
+                  <img :src="item.product.imageUrl" width="70px" height="70px" :alt="item.product.title商品">
+                </td>
+                <td class="h5">
+                  <div class="d-flex justify-content-between">
+                    <span class="h5 font-weight-bold mb-0">
+                      {{ item.product.title }}
+                    </span>
+                    <div class="input-group w-40 d-none d-md-flex">
+                      <div class="input-group-prepend">
+                        <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, -1)">-</button>
+                      </div>
+                      <input type="text" class="form-control text-center qty h-100" placeholder="0" aria-label="1" aria-describedby="basic-addon1" v-model="item.qty">
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, 1)">+</button>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="text-muted h5">{{item.product.price| currency }}
+                  </span>
+
+                  <div class="input-group w-100 d-flex d-md-none">
+                    <div class="input-group-prepend">
+                      <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, -1)">-</button>
+                    </div>
+                    <input type="text" class="form-control text-center qty" placeholder="0" aria-label="1" aria-describedby="basic-addon1" v-model="item.qty">
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, 1)">+</button>
+                    </div>
+                  </div>
+                </td>
+                <td class="h5 text-right">
+                  {{ item.qty*item.product.price| currency }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-lg-3">
+          <h2 class="bg-light py-2 text-center">應付金額</h2>
+          <div class="d-flex justify-content-between">
+            <div class="h5">小計</div>
+            <div class="h5">{{ total| currency }}</div>
+          </div>
+          <div class="d-flex justify-content-between border-bottom border-dark mb-2">
+            <div class="h5 mb-1">運費</div>
+            <div class="h5 mb-1">{{ 0| currency }}</div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="h5 text-danger">總計</div>
+            <div class="h5 text-danger">{{ total| currency }}</div>
+          </div>
+          <div class="d-flex justify-content-between" v-if="final_total!==total && hasCoupon">
+            <div class="h5 text-success">折扣價</div>
+            <div class="h5 text-success">{{ final_total| currency }}</div>
+          </div>
+          <div class="input-group mb-3 mt-3">
+            <input type="text" class="form-control border border-warning rounded-0" v-model="coupon_code" placeholder="輸入1234折扣碼" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-warning rounded-0" type="button" @click="addCouponCode">套用優惠券</button>
+            </div>
+          </div>
+          <router-link to="customer2">
+            <button type="button" class="btn btn-warning btn-lg w-100 rounded-0">確認訂單</button>
+          </router-link>
+        </div>
+      </div>
     </div>
     <Footer/>
   </div>

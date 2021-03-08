@@ -1,25 +1,25 @@
 <template>
   <div class="wrap">
     <main class="form-signin">
-        <form class="px-2" @submit.prevent="signin">
-            <div class="text-center">
-              <router-link to="/" class="mx-auto">
-                <img class="mb-4 " src="../assets/img/protectionshield.svg" alt="Berserker Fitness logo" width="72" height="57">
-              </router-link>
-            </div>
-            <h2 class="h3 mb-3 fw-normal">請登入</h2>
-            <label for="inputEmail" class="visually-hidden">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" v-model="user.username" placeholder="Email address" required autofocus>
-            <label for="inputPassword" class="visually-hidden">Password</label>
-            <input type="password" id="inputPassword" class="form-control"  v-model="user.password" placeholder="Password" required>
-            <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-            </div>
-            <button class="w-100 btn btn-lg btn-warning" type="submit">登入</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
-        </form>
+      <form class="px-2" @submit.prevent="signin">
+        <div class="text-center">
+          <router-link to="/" class="mx-auto">
+            <img class="mb-4 " src="../assets/img/protectionshield.svg" alt="Berserker Fitness logo" width="72" height="57">
+          </router-link>
+        </div>
+        <h2 class="h3 mb-3 fw-normal">請登入</h2>
+        <label for="inputEmail" class="visually-hidden">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" v-model="user.username" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="visually-hidden">Password</label>
+        <input type="password" id="inputPassword" class="form-control"  v-model="user.password" placeholder="Password" required>
+        <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-warning" type="submit">登入</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
+      </form>
     </main>
     <Footer/>
   </div>

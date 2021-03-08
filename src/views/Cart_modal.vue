@@ -1,17 +1,16 @@
 <template>
   <div>
     <div class="cart_list_cover" @click="closeCartCover">
-        <div class="cart_list">
-            <div class="card" v-for="(item, index) in cart_detail" :key="index">
-                <img class="card-img-top" :src="item.imageUrl" :alt="item.title圖片">
-                <div class="card-body">
-                    <h5 class="card-title">{{ item.title }}</h5>
-                    <p class="card-text">數量{{ item.num }} {{ item.unit }}</p>
-                </div>
-            </div>
+      <div class="cart_list">
+        <div class="card" v-for="(item, index) in cart_detail" :key="index">
+          <img class="card-img-top" :src="item.imageUrl" :alt="item.title圖片">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <p class="card-text">數量{{ item.num }} {{ item.unit }}</p>
+          </div>
         </div>
+      </div>
     </div>
-
   </div>
 </template>
 
@@ -35,7 +34,6 @@ export default {
       $('.cart_list_cover').removeClass('cartOpen')
     }
   }
-
 }
 </script>
 

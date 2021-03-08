@@ -1,38 +1,38 @@
 <template>
-    <div>
-        <Navbar :product_num="product_length" v-on:increment="CounterCoupute"></Navbar>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent border border-bottom">
-                <li class="breadcrumb-item">
-                    <router-link to="/" class="text-muted">首頁</router-link>
-                </li>
-                <li class="breadcrumb-item active text-dark" aria-current="page">門市一覽</li>
-            </ol>
-        </nav>
-        <div class="row px-3">
-          <div class="col-sm-4">
-            <div class="form-group">
-              <select class="form-control rounded-0" v-model="selectlocation" @change="PenTo(selectlocation)">
-                <option value="" disabled>請選擇任一間門市</option>
-                <option v-for="(item, key) in data" :key="key" :value="item">{{ item["場地名稱"] }}</option>
-              </select>
-            </div>
-            <div>
-              <h5 class="font-weight-bold">
-                {{ selectlocation["場地名稱"] }}
-              </h5>
-              <small class="text-muted small-text">{{ selectlocation["地址"] }}</small>
-              <br>
-              <h5 class="mt-3" v-if="selectlocation.decription!==''">{{ selectlocation.decription }}</h5>
-              <img :src="selectlocation.image" :alt="selectlocation['場地名稱']" class="img-thumbnail rounded-0" v-if="selectlocation.image!==''">
-            </div>
-          </div>
-          <div class="col-sm-8">
-            <div id="map"></div>
-          </div>
+  <div>
+    <Navbar :product_num="product_length" v-on:increment="CounterCoupute"></Navbar>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb bg-transparent border border-bottom">
+        <li class="breadcrumb-item">
+          <router-link to="/" class="text-muted">首頁</router-link>
+        </li>
+        <li class="breadcrumb-item active text-dark" aria-current="page">門市一覽</li>
+      </ol>
+    </nav>
+    <div class="row px-3">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <select class="form-control rounded-0" v-model="selectlocation" @change="PenTo(selectlocation)">
+            <option value="" disabled>請選擇任一間門市</option>
+            <option v-for="(item, key) in data" :key="key" :value="item">{{ item["場地名稱"] }}</option>
+          </select>
         </div>
-        <Footer/>
+        <div>
+          <h5 class="font-weight-bold">
+            {{ selectlocation["場地名稱"] }}
+          </h5>
+          <small class="text-muted small-text">{{ selectlocation["地址"] }}</small>
+          <br>
+          <h5 class="mt-3" v-if="selectlocation.decription!==''">{{ selectlocation.decription }}</h5>
+          <img :src="selectlocation.image" :alt="selectlocation['場地名稱']" class="img-thumbnail rounded-0" v-if="selectlocation.image!==''">
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div id="map"></div>
+      </div>
     </div>
+    <Footer/>
+  </div>
 </template>
 
 <script>
@@ -52,12 +52,6 @@ export default {
       product_length: 0,
       data: [],
       selectlocation: ''
-      // selectlocation: {
-      //   場地名稱: 'Berserker 南西店',
-      //   image: 'https://upload.cc/i1/2021/02/18/CTu2Xn.jpg',
-      //   地址: '臺中市太平區中興東路99號',
-      //   decription: '本店有提供最全面的重訓教學'
-      // }
     }
   },
   methods: {

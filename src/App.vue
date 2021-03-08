@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <button class="btn scrollTop bg-transparent text-dark">
-       <font-awesome-icon :icon="['fas','chevron-up']" size="3x"></font-awesome-icon>
-       <p>Top</p>
+      <font-awesome-icon :icon="['fas','chevron-up']" size="3x"></font-awesome-icon>
+      <p>Top</p>
     </button>
     <Loading :active.sync="isLoading"></Loading>
     <router-view/>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import $ from 'jquery';
+import $ from 'jquery'
 export default {
   name: 'App',
   data () {
@@ -47,7 +47,7 @@ export default {
   },
   created () {
     this.getCart()
-  },
+  }
 }
 </script>
 
