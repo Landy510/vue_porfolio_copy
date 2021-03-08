@@ -10979,6 +10979,10 @@ body {
           flex-direction: column;
 }
 
+.w-40 {
+  width: 40%;
+}
+
 @media (max-width: 568px) {
   .swiper-container {
     height: 480px;

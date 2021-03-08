@@ -177,13 +177,10 @@ export default {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`
       vm.isLoading = true
-      console.log('後臺商品', api)
       vm.$http.get(api).then((response) => {
-        console.log('後臺商品', api)
         vm.isLoading = false
         vm.products = response.data.products
         vm.pagination = response.data.pagination
-        console.log('後臺商品', response)
       })
     },
     openModal (isNew, item) {

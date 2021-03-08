@@ -3,11 +3,11 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 import 'bootstrap'
 import './bus.js'
+import './all.js'
 import currencyFilter from './filters/currency'
 
 import { extend, localize, configure } from 'vee-validate'

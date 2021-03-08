@@ -26,7 +26,7 @@
             <table class="table mt-4">
                 <thead>
                     <th class="border-bottom-0" width="10"></th>
-                    <th class="d-none d-md-block border-bottom-0" >商品圖片</th>
+                    <th class="d-none d-md-block border-bottom-0">商品圖片</th>
                     <th class="border-bottom-0 table_product" >商品名稱</th>
                     <th class="border-bottom-0" >金額</th>
                 </thead>
@@ -42,12 +42,14 @@
                     </td>
                       <td class="h5">
                         <div class="d-flex justify-content-between">
-                          <span>{{ item.product.title }}</span>
-                          <div class="input-group w-50 d-none d-sm-flex">
+                          <span class="h5 font-weight-bold mb-0">
+                            {{ item.product.title }}
+                          </span>
+                          <div class="input-group w-40 d-none d-md-flex">
                             <div class="input-group-prepend">
                               <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, -1)">-</button>
                             </div>
-                            <input type="text" class="form-control text-center qty" placeholder="0" aria-label="1" aria-describedby="basic-addon1" v-model="item.qty">
+                            <input type="text" class="form-control text-center qty h-100" placeholder="0" aria-label="1" aria-describedby="basic-addon1" v-model="item.qty">
                             <div class="input-group-append">
                               <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, 1)">+</button>
                             </div>
@@ -56,7 +58,7 @@
                         <span class="text-muted h5">{{item.product.price| currency }}
                         </span>
 
-                        <div class="input-group d-flex d-sm-none">
+                        <div class="input-group w-100 d-flex d-md-none">
                           <div class="input-group-prepend">
                             <button type="button" class="btn btn-grey border border-dark rounded-0" @click="addToCart(item, -1)">-</button>
                           </div>
@@ -198,7 +200,6 @@ export default {
       const cacheID = []
       vm.axios.get(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`)
         .then((res) => {
-          console.log('第一關')
           const cacheData = res.data.data.carts
           cacheData.forEach((item) => {
             cacheID.push(item.id)
@@ -206,11 +207,10 @@ export default {
         }).then(() => {
           cacheID.forEach((item) => {
             vm.axios.delete(`${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item}`).then(() => {
-              console.log('第二關-購物車已經清空')
+              console.log('購物車已經清空')
             })
           })
         }).then(() => {
-          console.log('第三關')
           vm.cartData.forEach((item) => {
             const cache = {
               product_id: item.product_id,
@@ -235,7 +235,6 @@ export default {
         cartID.push(item.product_id)
       })
       if (cartID.indexOf(data.product_id) === -1) {
-        console.log('沒有這項產品')
         const cartContent = {
           product_id: data.id,
           qty: data.qty,
@@ -247,12 +246,10 @@ export default {
         localStorage.setItem('cartData', JSON.stringify(vm.cartData))
         $('#productModal').modal('hide')
       } else {
-        console.log('有這項產品')
         let cache = {}
         vm.cartData.forEach((item, index) => {
           if (item.product_id === data.product_id) {
             const number = item.qty + num
-            console.log('數量', number)
             cache = {
               product_id: data.product_id,
               qty: number,
@@ -339,9 +336,12 @@ export default {
   z-index:-1;
 }
 .table_product{
-  width:300px;
+  width:400px;
 }
-@media(max-width:568px){
+.samll-text{
+  font-size:14px;
+}
+@media(max-width:760px){
   .table_product{
     width:200px;
   }

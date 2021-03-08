@@ -16,7 +16,8 @@
               <div class="card h-100 border-0 mr-2">
                 <img class="card-img-top h-50" :src="item.imageUrl" :alt="`${item.title}課程`">
                 <div class="card-body pt-1">
-                  <h5 class="card-title font-weight-bold">{{ item.title }}</h5>
+                  <p class="card-title font-weight-bold mb-1 h5">{{ item.title }}</p>
+                  <p class="card-title medium-text text-muted">{{ item.description }}</p>
                   <div class="d-flex justify-content-between align-items-end">
                     <small class="card-text text-muted small-text" v-if="item.origin_price!==item.price">原本售價<del>{{ item.origin_price| currency }}</del></small>
                     <strong class="card-text text-muted ml-auto">現在售價 <span class="h4 text-danger">{{ item.price | currency }}</span></strong>
@@ -40,11 +41,12 @@
           <div class="tab-content mb-3" id="nav-tabContent">
             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
               <div class="row">
-                <div class="col-sm-6 col-lg-4 mb-2 " v-for="(item) in products" :key="item.id">
-                  <div class="card h-100 border-0">
+                <div class="col-sm-6 col-lg-4" v-for="(item) in products" :key="item.id">
+                  <div class="card h-100 border-0 mb-5">
                     <img class="card-img-top h-60" :src="item.imageUrl" :alt="`${item.title}課程`">
                     <div class="card-body p-0">
-                      <p class="card-text mb-0 h5">{{ item.title }}</p>
+                      <p class="card-title font-weight-bold mb-1 h5">{{ item.title }}</p>
+                      <p class="card-title medium-text text-muted">{{ item.description }}</p>
                       <div class="d-flex justify-content-between align-items-end">
                         <small class="card-text text-muted small-text" v-if="item.origin_price!==item.price">原本售價<del>{{ item.origin_price| currency }}</del></small>
                         <strong class="card-text text-muted ml-auto">現在售價 <span class="h4 text-danger">{{ item.price | currency }}</span></strong>
@@ -57,29 +59,30 @@
             </div>
             <div class="tab-pane fade" id="list-Workout" role="tabpanel" aria-labelledby="list-Workout-list">
                 <div class="row">
-                  <div class="col-sm-6 col-md-4 mb-2" v-for="(item, index) in workoutArray" :key="index">
+                  <div class="col-sm-6 col-lg-4 mb-2" v-for="(item, index) in workoutArray" :key="index">
                     <div class="card h-100 border-0">
                       <img class="card-img-top h-60" :src="item.imageUrl" :alt="`${item.title}課程`">
                       <div class="card-body p-0">
-                        <p class="card-text mb-0 h5">{{ item.title }}</p>
+                        <p class="card-title font-weight-bold mb-1 h5">{{ item.title }}</p>
+                        <p class="card-title medium-text text-muted">{{ item.description }}</p>
                         <div class="d-flex justify-content-between align-items-end">
                           <small class="card-text text-muted small-text" v-if="item.origin_price!==item.price">原本售價<del>{{ item.origin_price }}</del></small>
                           <strong class="card-text text-muted ml-auto">現在售價 <span class="h4 text-danger">{{ item.price }}</span></strong>
                         </div>
                         <button type="button" class="btn btn-outline-dark rounded-0 btn-md-lg rounded-0 w-100" @click="getDetail(item.id)"><font-awesome-icon :icon="['fas', 'cart-arrow-down']" class="mr-2" />加入購物車</button>
                       </div>
-
                     </div>
                   </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="list-women" role="tabpanel" aria-labelledby="list-women-list">
                 <div class="row">
-                  <div class="col-sm-6 col-md-4 mb-2" v-for="(item, index) in aerobicArray" :key="index">
+                  <div class="col-sm-6 col-lg-4 mb-2" v-for="(item, index) in aerobicArray" :key="index">
                     <div class="card h-100 border-0">
                       <img class="card-img-top h-60" :src="item.imageUrl" :alt="`${item.title}課程`">
                       <div class="card-body p-0">
-                        <p class="card-text mb-0 h5">{{ item.title }}</p>
+                        <p class="card-title font-weight-bold mb-1 h5">{{ item.title }}</p>
+                        <p class="card-title medium-text text-muted">{{ item.description }}</p>
                         <div class="d-flex justify-content-between align-items-end">
                           <small class="card-text text-muted small-text" v-if="item.origin_price!==item.price">原本售價<del>{{ item.origin_price }}</del></small>
                           <strong class="card-text text-muted ml-auto">現在售價 <span class="h4 text-danger">{{ item.price }}</span></strong>
@@ -137,21 +140,16 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content border-0">
           <div class="modal-header text-dark">
-              <h3 class="modal-title" id="exampleModalLabel">
-              <span class="font-weight-bold">{{ product_detail.title }}</span>
-              </h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-              </button>
+            <h3 class="modal-title" id="exampleModalLabel" v-html="product_detail.title"></h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">
             <div class="card border-0">
               <img class="card-img-top rounded-0" :src= "product_detail.imageUrl" :alt="`${product_detail.title}課程圖片`">
               <div class="card-body">
-                <h5 class="font-weight-bold">本課程好處</h5>
                 <div v-html="product_detail.content"></div>
-                <h5 class="font-weight-bold mt-2">課程訓練的安排</h5>
-                <div v-html="product_detail.description"></div>
                 <div class="d-flex justify-content-between align-items-end">
                   <del class="origin_price_text">原價{{ product_detail.origin_price }}元</del>
                   <strong class="special_price_text">現在只要<span class="text-danger">{{ product_detail.price }}</span>元</strong>
@@ -215,7 +213,6 @@ export default {
       vm.$http.get(api).then((response) => {
         if (response.data.success) {
           vm.products = response.data.products
-          console.log('首頁資料', vm.products)
         }
         vm.isLoading = false
       })
@@ -241,7 +238,6 @@ export default {
         cartID.push(item.product_id)
       })
       if (cartID.indexOf(data.id) === -1) {
-        console.log('沒有這份資料')
         const cartContent = {
           product_id: data.id,
           qty: qty,
@@ -253,7 +249,6 @@ export default {
         localStorage.setItem('cartData', JSON.stringify(vm.cartData))
         $('#productModal').modal('hide')
       } else {
-        console.log('有這份資料')
         let cache = {}
         vm.cartData.forEach((item, index) => {
           if (item.product_id === data.id) {

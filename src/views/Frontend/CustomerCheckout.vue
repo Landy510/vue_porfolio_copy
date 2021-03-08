@@ -94,7 +94,6 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
       vm.$http.get(api).then((response) => {
         vm.order = response.data.order
-        console.log(vm.order)
       })
     },
     CounterCoupute (cartTotalLength) {

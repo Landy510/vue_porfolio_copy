@@ -21,7 +21,7 @@
           <p class="m-0 text-dark font-weight-bold">填寫資料</p>
         </div>
         <div class="row">
-          <div class="col-lg-8 mb-2">
+          <div class="col-lg-7 mb-2">
             <h2 class="bg-warning py-2 text-center">收件人資料</h2>
             <h5>星號(*)部分必填</h5>
             <div>
@@ -72,7 +72,7 @@
               </ValidationObserver>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <h2 class="text-center bg-light py-2 cart_content_btn d-block d-lg-none" @click="openCartContent">購物車內容
               <font-awesome-icon v-if="carts.length!==0" :icon="['fas','chevron-down']" size="1x" class="arrow"></font-awesome-icon>
             </h2>
@@ -84,7 +84,7 @@
                   <div class="ml-3 w-100">
                     <div class="d-flex mb-2 font-weight-bold">
                       <div>課程名稱</div>
-                      <div class="ml-auto text-right">{{ item.product.title }}</div>
+                      <div class="ml-auto text-right" v-html="item.product.title"></div>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                       <div>單價</div>
@@ -132,7 +132,7 @@
                   <tr v-for="(item, key) in carts" :key="key">
                     <td class="h5">
                       <div class="d-flex justify-content-between">
-                        <span>{{ item.product.title }}</span>
+                        <span class="medium-text" v-html="item.product.title "></span>
                       </div>
                       <span class="text-muted h5">{{item.product.price| currency }}
                       </span>
@@ -147,7 +147,7 @@
                   </tr>
                   <tr class="table_total_display">
                     <td colspan="3" class="text-right h3">小計</td>
-                    <td class="text-right h3 d-none d-md-block">{{ total|currency }}</td>
+                    <td class="text-right h3 d-none d-sm-block">{{ total|currency }}</td>
                   </tr>
                   <tr class="table_total_displaySmall">
                     <td colspan="2" class="text-right h3">小計</td>
@@ -155,7 +155,7 @@
                   </tr>
                   <tr class="table_total_display">
                     <td colspan="3" class="text-right h3 border-top-0 pt-0">運費</td>
-                    <td class="text-right h3 d-none d-md-block border-top-0 pt-0">{{ 0|currency }}</td>
+                    <td class="text-right h3 d-none d-sm-block border-top-0 pt-0">{{ 0|currency }}</td>
                   </tr>
                   <tr class="table_total_displaySmall">
                     <td colspan="2" class="text-right h3 border-top-0 pt-0">運費</td>
@@ -163,7 +163,7 @@
                   </tr>
                   <tr class="table_total_display">
                     <td colspan="3" class="text-right h3 border-top-0 pt-0">總計</td>
-                    <td class="text-right h3 d-none d-md-block border-top-0 pt-0 text-danger">{{ total|currency }}</td>
+                    <td class="text-right h3 d-none d-sm-block border-top-0 pt-0 text-danger">{{ total|currency }}</td>
                   </tr>
                   <tr class="table_total_displaySmall">
                     <td colspan="2" class="text-right h3 border-top-0 pt-0">總計</td>
@@ -171,7 +171,7 @@
                   </tr>
                   <tr class="table_total_display" v-if="final_total!==total">
                     <td colspan="3" class="text-right h3 border-top-0 pt-0">折扣價</td>
-                    <td class="text-right h3 d-none d-md-block border-top-0 pt-0 text-success">{{ final_total|currency }}</td>
+                    <td class="text-right h3 d-none d-sm-block border-top-0 pt-0 text-success">{{ final_total|currency }}</td>
                   </tr>
                   <tr class="table_total_displaySmall" v-if="final_total!==total">
                     <td colspan="2" class="text-right h3 border-top-0 pt-0">折扣價</td>
@@ -379,6 +379,9 @@ export default {
 }
 .table_total_displaySmall{
   display:none;
+}
+.medium-text{
+  font-size:16px;
 }
 @media(max-width:680px){
   .confirm_btn{

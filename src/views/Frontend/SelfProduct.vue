@@ -22,10 +22,8 @@
             </div>
             <div class="col-lg-6">
               <h2>{{ lecture.title }}</h2>
-              <h5 class="font-weight-bold">本課程好處</h5>
+              <div class="mb-2 font-weight-bold">{{ lecture.description }}</div>
               <div v-html="lecture.content"></div>
-              <h5 class="font-weight-bold mt-2">本課程安排</h5>
-              <div>{{ lecture.description }}</div>
               <div class="d-flex justify-content-between align-items-end mb-3 mt-4">
                 <div class="card-text text-muted medium-text">原本售價 <del>NT{{ lecture.origin_price| currency }}</del></div>
                 <strong class="text-muted ml-auto h3 mb-0 text-right">現在售價 NT<span class="h3 text-danger">{{ lecture.price| currency }}</span></strong>

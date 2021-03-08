@@ -68,7 +68,7 @@
                             <tbody v-else class="text-danger">
                               <p>我的最愛清單沒有商品喔~</p>
                               <router-link to="/">
-                                <button class="btn btn-warning">回去逛逛~</button>
+                                <button class="btn btn-warning" @click="closeModal">回去逛逛~</button>
                               </router-link>
                             </tbody>
                           </table>
@@ -142,7 +142,7 @@
               <div class="modal-body" v-else>
                 <p class="text-danger mb-2 h5">購物車裡沒有商品喔~</p>
                 <router-link to="/">
-                  <button class="btn btn-warning">回去逛逛~</button>
+                  <button class="btn btn-warning" @click="closeModal">回去逛逛~</button>
                 </router-link>
               </div>
             </div>
@@ -223,7 +223,6 @@ export default {
         cartID.push(item.product_id)
       })
       if (cartID.indexOf(data.id) === -1) {
-        console.log('沒有這份資料')
         const cartContent = {
           product_id: data.id,
           qty: 1,
@@ -234,7 +233,6 @@ export default {
         vm.cartData.push(cartContent)
         localStorage.setItem('cartData', JSON.stringify(vm.cartData))
       } else {
-        console.log('有這份資料')
         let cache = {}
         vm.cartData.forEach((item, index) => {
           if (item.product_id === data.id) {

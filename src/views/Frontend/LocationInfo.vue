@@ -13,6 +13,7 @@
           <div class="col-sm-4">
             <div class="form-group">
               <select class="form-control rounded-0" v-model="selectlocation" @change="PenTo(selectlocation)">
+                <option value="" disabled>請選擇任一間門市</option>
                 <option v-for="(item, key) in data" :key="key" :value="item">{{ item["場地名稱"] }}</option>
               </select>
             </div>
@@ -50,12 +51,13 @@ export default {
     return {
       product_length: 0,
       data: [],
-      selectlocation: {
-        場地名稱: 'Berserker 南西店',
-        image: 'https://upload.cc/i1/2021/02/18/CTu2Xn.jpg',
-        地址: '臺中市太平區中興東路99號',
-        decription: '本店有提供最全面的重訓教學'
-      }
+      selectlocation: ''
+      // selectlocation: {
+      //   場地名稱: 'Berserker 南西店',
+      //   image: 'https://upload.cc/i1/2021/02/18/CTu2Xn.jpg',
+      //   地址: '臺中市太平區中興東路99號',
+      //   decription: '本店有提供最全面的重訓教學'
+      // }
     }
   },
   methods: {

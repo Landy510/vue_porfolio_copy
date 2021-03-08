@@ -4,7 +4,6 @@
       <loading :active.sync="isLoading"></loading>
     </div>
     <Navbar></Navbar>
-
     <div class="bg_finish bg-cover flex-grow-1 d-flex justify-content-center align-items-center flex-column">
       <div class="paid_content non_paid" :class="{'finish_paid':is_paid}">
         <font-awesome-icon class="paid_progress mr-2" :icon="['fas', 'flag']"/>
